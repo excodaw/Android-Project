@@ -6,6 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
+    WorkOutFragment workOutFragment;
+    RoutineFragment routineFragment;
+    RecordFragment recordFragment;
+    SettingFragment settingFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,5 +19,12 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        workOutFragment = new WorkOutFragment();
+        routineFragment = new RoutineFragment();
+        recordFragment = new RecordFragment();
+        settingFragment = new SettingFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, workOutFragment).commit();
     }
 }
