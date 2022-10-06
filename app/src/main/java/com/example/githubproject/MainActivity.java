@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,SettingFragment).commit();
                         return true;
+
                 }
                 return false;
             }
