@@ -5,10 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/switch_darkmode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="다크모드" />
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
