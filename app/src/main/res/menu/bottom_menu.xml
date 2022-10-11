@@ -21,11 +21,8 @@
         android:title="Record">
     </item>
 
-    <item
-        android:id="@+id/fourth_tab"
-        app:showAsAction="always"
-        android:enabled="true"
-        android:title="Setting">
-    </item>
+
+
+
 
 </menu>
