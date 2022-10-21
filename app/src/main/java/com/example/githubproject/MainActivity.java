@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     WorkOutFragment WorkOutFragment;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.first_tab:
+
                         Toast.makeText(getApplicationContext(),"WorkOut",Toast.LENGTH_SHORT).show();
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,WorkOutFragment).commit();
                         return true;

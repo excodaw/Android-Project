@@ -17,9 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
+        android:background="#111111"
         app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#000000"
+        app:itemTextColor="#BCBCBC"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu">
 
@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/settings_20px"
-         />
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/settings_20px" />
 
 
 </RelativeLayout>
