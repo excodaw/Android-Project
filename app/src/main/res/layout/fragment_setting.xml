@@ -12,19 +12,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="vertical"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:orientation="vertical">
 
-            <Switch
-                android:id="@+id/switch_darkmode"
+            <Button
+                android:id="@+id/alarm_button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="다크모드" />
+                android:layout_height="wrap_content"
+                android:text="알람 설정" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"></LinearLayout>
     </LinearLayout>
 </FrameLayout>
