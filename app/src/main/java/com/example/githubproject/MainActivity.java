@@ -10,6 +10,8 @@ import android.icu.text.AlphabeticIndex;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Menu;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     RoutineFragment RoutineFragment;
     RecordFragment RecordFragment;
     SettingFragment SettingFragment;
+    BottomNavigationView bottomNavigationView;
+    Button btn_chest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-
+        findViewById(R.id.button).setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,WorkOutFragment).commit();
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,32 +47,31 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
                 transaction.replace(R.id.container, SettingFragment);
                 transaction.commit();
-
-
             }
         });
 
+//        public boolean onCreateOptionsMenu(Menu menu)    {
+//            getMenuInflater().inflate(R.menu.main_menu, menu);
+//            return true;
+//        }
 
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_menu);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView = findViewById(R.id.bottom_menu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.first_tab:
                         findViewById(R.id.button).setVisibility(View.VISIBLE);
-                        Toast.makeText(getApplicationContext(),"WorkOut",Toast.LENGTH_SHORT).show();
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,WorkOutFragment).commit();
                         return true;
 
                     case R.id.second_tab:
                         findViewById(R.id.button).setVisibility(View.VISIBLE);
-                        Toast.makeText(getApplicationContext(),"Routine",Toast.LENGTH_SHORT).show();
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,RoutineFragment).commit();
                         return true;
 
                     case R.id.third_tab:
                         findViewById(R.id.button).setVisibility(View.VISIBLE);
-                        Toast.makeText(getApplicationContext(),"Record",Toast.LENGTH_SHORT).show();
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,RecordFragment).commit();
                         return true;
 

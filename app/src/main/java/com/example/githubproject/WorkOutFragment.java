@@ -7,12 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WorkOutFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WorkOutFragment extends Fragment {
     public static WorkOutFragment newInstance(String param1, String param2) {
         WorkOutFragment fragment = new WorkOutFragment();
@@ -20,6 +19,14 @@ public class WorkOutFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    Button btn_chest;
+    Button btn_back;
+    Button btn_shoulder;
+    Button btn_lower_body;
+    Button btn_abs;
+    Button btn_arm;
+    ListView WL;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,22 @@ public class WorkOutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_work_out, container, false);
+        View view = inflater.inflate(R.layout.fragment_work_out, container, false);
+
+        btn_chest = view.findViewById(R.id.btn_chest);
+        btn_back = view.findViewById(R.id.btn_back);
+        btn_shoulder = view.findViewById(R.id.btn_shoulder);
+        btn_lower_body = view.findViewById(R.id.btn_lower_body);
+        btn_abs = view.findViewById(R.id.btn_abs);
+        btn_arm = view.findViewById(R.id.btn_arm);
+
+        return view;
+    }
+
+    public void OnClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_chest:
+                Toast.makeText(getActivity(), "gd", Toast.LENGTH_LONG).show();
+        }
     }
 }

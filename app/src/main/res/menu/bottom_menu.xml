@@ -5,17 +5,20 @@
 
     <item
         android:id="@+id/first_tab"
+        android:icon="@drawable/ic_baseline_person_24"
         app:showAsAction="always"
         android:enabled="true"
         android:title="운동"/>
     <item
         android:id="@+id/second_tab"
+        android:icon="@drawable/ic_baseline_event_note_24"
         app:showAsAction="always"
         android:enabled="true"
         android:title="루틴"/>
 
     <item
         android:id="@+id/third_tab"
+        android:icon="@drawable/ic_baseline_notes_24"
         app:showAsAction="always"
         android:enabled="true"
         android:title="기록">

@@ -20,48 +20,53 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/btn_chest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="가슴" />
 
                 <Button
-                    android:id="@+id/button10"
+                    android:id="@+id/btn_shoulder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="어깨" />
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/btn_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="등" />
 
                 <Button
-                    android:id="@+id/button11"
+                    android:id="@+id/btn_lower_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="하체" />
 
                 <Button
-                    android:id="@+id/button12"
+                    android:id="@+id/btn_arm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="팔"/>
 
                 <Button
-                    android:id="@+id/button13"
+                    android:id="@+id/btn_abs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:text="복근" />
             </LinearLayout>
         </HorizontalScrollView>
+        <ListView
+            android:id="@+id/WorkOutList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 
 </FrameLayout>
