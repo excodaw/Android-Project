@@ -53,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-        findViewById(R.id.button).setVisibility(View.VISIBLE);
+        findViewById(R.id.set_button).setVisibility(View.VISIBLE);
         getSupportFragmentManager().beginTransaction().replace(R.id.container,WorkOutFragment).commit();
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.set_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                findViewById(R.id.button).setVisibility(View.GONE);
+                findViewById(R.id.set_button).setVisibility(View.GONE);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 Toast.makeText(getApplicationContext(),"Setting",Toast.LENGTH_SHORT).show();
                 transaction.replace(R.id.container, SettingFragment);
@@ -72,17 +72,17 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.first_tab:
-                        findViewById(R.id.button).setVisibility(View.VISIBLE);
+                        findViewById(R.id.set_button).setVisibility(View.VISIBLE);
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,WorkOutFragment).commit();
                         return true;
 
                     case R.id.second_tab:
-                        findViewById(R.id.button).setVisibility(View.VISIBLE);
+                        findViewById(R.id.set_button).setVisibility(View.VISIBLE);
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,RoutineFragment).commit();
                         return true;
 
                     case R.id.third_tab:
-                        findViewById(R.id.button).setVisibility(View.VISIBLE);
+                        findViewById(R.id.set_button).setVisibility(View.VISIBLE);
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,RecordFragment).commit();
                         return true;
 

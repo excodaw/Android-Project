@@ -55,6 +55,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <activity android:name=".AlarmReceiver"></activity>
+        <activity android:name=".Alarm_activity"></activity>
         <receiver android:name=".AlarmReceiver" />
     </application>
 
