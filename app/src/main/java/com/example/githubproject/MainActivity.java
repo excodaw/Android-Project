@@ -25,6 +25,22 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Button btn_chest;
 
+    public boolean onCreateOptionsMenu(Menu menu)    {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.setting_menu:
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 transaction.commit();
             }
         });
-
-//        public boolean onCreateOptionsMenu(Menu menu)    {
-//            getMenuInflater().inflate(R.menu.main_menu, menu);
-//            return true;
-//        }
 
         bottomNavigationView = findViewById(R.id.bottom_menu);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

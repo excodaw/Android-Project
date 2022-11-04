@@ -47,13 +47,46 @@ public class WorkOutFragment extends Fragment {
         btn_abs = view.findViewById(R.id.btn_abs);
         btn_arm = view.findViewById(R.id.btn_arm);
 
-        return view;
-    }
+        btn_chest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
 
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_chest:
-                Toast.makeText(getActivity(), "gd", Toast.LENGTH_LONG).show();
-        }
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btn_shoulder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btn_lower_body.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btn_abs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btn_arm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        return view;
     }
 }
