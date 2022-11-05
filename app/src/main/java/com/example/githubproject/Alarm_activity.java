@@ -1,5 +1,6 @@
 package com.example.githubproject;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -29,8 +30,12 @@ public class Alarm_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_alarm);
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
         final TimePicker picker=(TimePicker)findViewById(R.id.timePicker);
         picker.setIs24HourView(true);
+
+        Intent home_intent= new Intent(Alarm_activity.this, MainActivity.class);
 
 
         // 앞서 설정한 값으로 보여주기
@@ -66,6 +71,13 @@ public class Alarm_activity extends AppCompatActivity {
 
 
         Button button = (Button) findViewById(R.id.button);
+        Button button_home= (Button) findViewById(R.id.button_home);
+
+        button_home.setOnClickListener(new View.OnClickListener(){// 메인으로 돌아가는 버튼 생성
+            public void onClick(View arg1){
+                startActivity(home_intent);
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

@@ -25,14 +25,5 @@
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <ImageButton
-        android:id="@+id/set_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/settings_20px" />
-
 
 </RelativeLayout>
