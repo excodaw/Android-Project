@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.AlphabeticIndex;
 import android.os.Bundle;
 import android.view.MenuInflater;
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     RecordFragment RecordFragment;
     SettingFragment SettingFragment;
     BottomNavigationView bottomNavigationView;
+
+    DBHelper dbHelper;
 
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -59,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         RoutineFragment = new RoutineFragment();
         RecordFragment = new RecordFragment();
         SettingFragment = new SettingFragment();
+
+
+
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -115,6 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+        dbHelper = new DBHelper(MainActivity.this,1);
+
+
+
     }
 }
 

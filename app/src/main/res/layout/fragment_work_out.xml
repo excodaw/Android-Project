@@ -63,11 +63,11 @@
                     android:text="복근" />
             </LinearLayout>
         </HorizontalScrollView>
+
         <ListView
             android:id="@+id/WorkOutList"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
