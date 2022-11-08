@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // Person Table 데이터 입력
     public void insert(int ID, String Exercise_type, String Exercise_Name, int is_tts) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO Exercise VALUES('" + ID + "', " + Exercise_type + ", '" + Exercise_Name + ", '" + is_tts + "')");
+        db.execSQL("INSERT INTO Exercise VALUES(" + ID + ", '" + Exercise_type + "', '" + Exercise_Name + "', " + is_tts + ")");
         db.close();
     }
 
