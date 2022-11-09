@@ -23,7 +23,6 @@
         app:itemTextColor="@drawable/menu_selector_color"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_menu">
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,106 +33,12 @@
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
         android:clickable="true"
-        android:contentDescription="@string/app_name" />
-<!--db예시-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:src="@drawable/ic_baseline_add_24"
+        android:backgroundTint="@color/black"
+        android:contentDescription="@string/app_name"
+        app:tint="@color/white"
+        app:borderWidth="0dp"
+        />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/db_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="id" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/db_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="exercise_type" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/db_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="exercise_name" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/db_tts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="tts(0,1)" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/db_save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="저장하기" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/db_select"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="조회하기" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/db_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-        </LinearLayout>
-
-
-
-
-    </LinearLayout>
 
 </RelativeLayout>

@@ -16,7 +16,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        alarm_button.findViewById(R.id.alarm_button);
+        alarm_button = findViewById(R.id.alarm_button);
 
         alarm_button.setOnClickListener(new View.OnClickListener() {
             @Override
