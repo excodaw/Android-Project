@@ -6,69 +6,104 @@
     android:layout_height="match_parent"
     tools:context=".AddWorkOutActivity">
 
+    <!--db예시-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="40dp"
+            android:orientation="vertical"></LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/db_id"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="id" />
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_chest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="가슴" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_shoulder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="어깨" />
+            <EditText
+                android:id="@+id/db_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="exercise_type" />
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="등" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_lower_body"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="하체" />
+            <EditText
+                android:id="@+id/db_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="exercise_name" />
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_arm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="팔" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_abs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="복근" />
-            </LinearLayout>
-        </HorizontalScrollView>
+            <EditText
+                android:id="@+id/db_tts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="tts(0,1)" />
+        </LinearLayout>
 
-        <ListView
-            android:id="@+id/WorkOutList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/db_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="저장하기" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/db_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="조회하기" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/db_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+
+
 
     </LinearLayout>
 

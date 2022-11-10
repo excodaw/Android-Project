@@ -35,23 +35,15 @@ public class MainActivity extends AppCompatActivity {
     RecordFragment RecordFragment;
     BottomNavigationView bottomNavigationView;
 
-    DBHelper dbHelper;
-    Button db_save,db_select;
-    EditText db_id, db_name, db_type, db_tts;
-    TextView db_view;
-
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch(item.getItemId()) {
             case R.id.setting_menu:
-                findViewById(R.id.fab).setVisibility(View.GONE);
-                findViewById(R.id.setting_menu).setVisibility(View.GONE);
-                Intent intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -83,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch(menuItem.getItemId()) {
                             case R.id.add_routine:
-                                startActivity(new Intent(getApplicationContext(), AddWorkOutActivity.class));
+                                startActivity(new Intent(getApplicationContext(), AddRoutineActivity.class));
                                 return true;
                             case R.id.add_workout:
-                                Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), AddWorkOutActivity.class));
                             default:
                                 return false;
                         }
@@ -124,29 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        db_save= (Button) findViewById(R.id.db_save);
-        db_select= (Button) findViewById(R.id.db_select);
-        db_id= (EditText) findViewById(R.id.db_id);
-        db_name= (EditText) findViewById(R.id.db_name);
-        db_type= (EditText) findViewById(R.id.db_type);
-        db_tts=(EditText) findViewById(R.id.db_tts);
-        db_view=(TextView) findViewById(R.id.db_view);
-
-        dbHelper = new DBHelper(MainActivity.this, 1);
-
-        db_save.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                dbHelper.insert(Integer.parseInt(db_id.getText().toString()), db_type.getText().toString(),
-                        db_name.getText().toString(), Integer.parseInt(db_tts.getText().toString()));
-            }
-        });
-        db_select.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v2){
-                db_view.setText(dbHelper.getResult());
-            }
-        });
-
 
     }
 
