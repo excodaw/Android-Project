@@ -40,12 +40,12 @@ public class DBHelper extends SQLiteOpenHelper {
 //        db.close();
 //    }
 
-//    // Person Table 데이터 삭제
-//    public void Delete(String ID) {
-//        SQLiteDatabase db = getWritableDatabase();
-//        db.execSQL("DELETE Exercise WHERE ID = '" + ID + "'");
-//        db.close();
-//    }
+    // Person Table 데이터 삭제
+    public void Delete(int ID) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM Exercise WHERE ID = '" + ID + "'");
+        db.close();
+    }
 
     // Person Table 조회
     public String getResult() {
@@ -57,9 +57,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM Exercise", null);
         while (cursor.moveToNext()) {
             result += " 번호 : " + cursor.getInt(0)
-                    + ", 운동타입 : "
-                    + cursor.getString(1)
                     + ", 운동종류 : "
+                    + cursor.getString(1)
+                    + ", 운동이름 : "
                     + cursor.getString(2)
                     + ", tts여부 : "
                     + cursor.getInt(3)

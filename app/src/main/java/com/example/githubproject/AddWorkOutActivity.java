@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class AddWorkOutActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
-    Button db_save,db_select;
+    Button db_save,db_select, db_delete;
     EditText db_id, db_name, db_type, db_tts;
     TextView db_view;
 
@@ -27,6 +27,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         db_type = (EditText) findViewById(R.id.db_type);
         db_tts = (EditText) findViewById(R.id.db_tts);
         db_view = (TextView) findViewById(R.id.db_view);
+        db_delete= (Button) findViewById(R.id.db_delete);
 
         dbHelper = new DBHelper(this, 1);
 
@@ -39,6 +40,13 @@ public class AddWorkOutActivity extends AppCompatActivity {
         db_select.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v2){
                 db_view.setText(dbHelper.getResult());
+            }
+        });
+
+        db_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v3) {
+                dbHelper.Delete(Integer.parseInt(db_id.getText().toString()));
             }
         });
 
