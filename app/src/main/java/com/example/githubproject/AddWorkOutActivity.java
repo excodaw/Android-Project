@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class AddWorkOutActivity extends AppCompatActivity {
 
-    DBHelper dbHelper;
+//    DBHelper dbHelper;
     Button db_save,db_select;
     EditText db_id, db_name, db_type, db_tts;
     TextView db_view;
@@ -28,19 +28,19 @@ public class AddWorkOutActivity extends AppCompatActivity {
         db_tts = (EditText) findViewById(R.id.db_tts);
         db_view = (TextView) findViewById(R.id.db_view);
 
-        dbHelper = new DBHelper(this, 1);
-
-        db_save.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                dbHelper.insert(Integer.parseInt(db_id.getText().toString()), db_type.getText().toString(),
-                        db_name.getText().toString(), Integer.parseInt(db_tts.getText().toString()));
-            }
-        });
-        db_select.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v2){
-                db_view.setText(dbHelper.getResult());
-            }
-        });
+//        dbHelper = new DBHelper(this, 1);
+//
+//        db_save.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View v){
+//                dbHelper.insert(Integer.parseInt(db_id.getText().toString()), db_type.getText().toString(),
+//                        db_name.getText().toString(), Integer.parseInt(db_tts.getText().toString()));
+//            }
+//        });
+//        db_select.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View v2){
+//                db_view.setText(dbHelper.getResult());
+//            }
+//        });
 
     }
 }
