@@ -2,11 +2,20 @@ package com.example.githubproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class AddWorkOutActivity extends AppCompatActivity {
 
@@ -29,6 +38,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         db_view = (TextView) findViewById(R.id.db_view);
         db_delete= (Button) findViewById(R.id.db_delete);
 
+
         dbHelper = new DBHelper(this, 1);
 
         db_save.setOnClickListener(new View.OnClickListener(){
@@ -39,6 +49,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         });
         db_select.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v2){
+                dbHelper.dbCopy();
                 db_view.setText(dbHelper.getResult());
             }
         });
@@ -49,7 +60,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
                 dbHelper.Delete(Integer.parseInt(db_id.getText().toString()));
             }
         });
-
     }
+
 }
 
