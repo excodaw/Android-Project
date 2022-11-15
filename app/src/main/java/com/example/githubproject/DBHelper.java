@@ -95,10 +95,11 @@ public class DBHelper extends SQLiteOpenHelper {
             InputStream is = am.open("WorkOutDB.db");
             BufferedInputStream bis = new BufferedInputStream(is);
 
-            // 만약에 파일이 있다면 지우고 다시 생성
+            // 만약에 파일이 있다면 복사 하지 않음
             if (f.exists()) {
-                f.delete();
-                f.createNewFile();
+//                f.delete();   //파일 삭제
+//                f.createNewFile();    //파일 재생성
+                return;
             }
             fos = new FileOutputStream(f);
             bos = new BufferedOutputStream(fos);
