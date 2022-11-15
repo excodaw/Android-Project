@@ -1,11 +1,15 @@
 package com.example.githubproject;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,31 +18,19 @@ import java.io.OutputStream;
 
 public class DBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "WorkOutDB.db";
-    private static String DB_PATH = "";
-    private Context mcontext;
-    private final static String TAG = "DataBaseHelper";
+
 
     // DBHelper 생성자
     public DBHelper(Context context, int version) {
 
         super(context, DATABASE_NAME, null, version);
-        DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-        this.mcontext = context;
-        dataBaseCheck();
-    }
 
-    private void dataBaseCheck() {
-        File dbFile = new File(DB_PATH + DATABASE_NAME);
-        if (!dbFile.exists()) {
-            dbCopy();
-            Log.d(TAG,"Database is copied.");
-        }
     }
 
     // Person Table 생성
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE 운동목록(ID INT,Exercise_Type TEXT, Exercise_Name Text, TTS INT)");
+        db.execSQL("CREATE TABLE 운동목록(ID INTEGER,Exercise_Type TEXT, Exercise_Name TEXT, TTS INTEGER)");
     }
 
     // Person Table Upgrade
@@ -49,9 +41,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Person Table 데이터 입력
-    public void insert(int ID, String Exercise_type, String Exercise_Name, int TTS) {
+    public void insert(int ID, String Exercise_Type, String Exercise_Name, int TTS) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO 운동목록 VALUES(" + ID + ", '" + Exercise_type + "', '" + Exercise_Name + "', " + TTS + ")");
+        db.execSQL("INSERT INTO 운동목록 VALUES("+ ID + ", '" + Exercise_Type +"','"+ Exercise_Name + "', "+ TTS + ")");
         db.close();
     }
 
@@ -90,30 +82,42 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return result;
     }
-// assets 복사해서 가져오기
-    public void dbCopy() {
+    public void dbCopy(Activity act) {
+
+        AssetManager am = act.getAssets();
+        File f = new File("/data/data/com.example.githubproject/databases/WorkOutDB.db");
+
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
 
         try {
-            File folder = new File(DB_PATH);
-            if (!folder.exists()) {
-                folder.mkdir();
-            }
 
-            InputStream inputStream = mcontext.getAssets().open(DATABASE_NAME);
-            String out_filename = DB_PATH + DATABASE_NAME;
-            OutputStream outputStream = new FileOutputStream(out_filename);
-            byte[] mBuffer = new byte[1024];
-            int mLength;
-            while ((mLength = inputStream.read(mBuffer)) > 0) {
-                outputStream.write(mBuffer,0,mLength);
+            InputStream is = am.open("WorkOutDB.db");
+            BufferedInputStream bis = new BufferedInputStream(is);
+
+            // 만약에 파일이 있다면 지우고 다시 생성
+            if (f.exists()) {
+                f.delete();
+                f.createNewFile();
             }
-            outputStream.flush();;
-            outputStream.close();
-            inputStream.close();
+            fos = new FileOutputStream(f);
+            bos = new BufferedOutputStream(fos);
+
+            int read = -1;
+            byte[] buffer = new byte[1024];
+            while ((read = bis.read(buffer, 0, 1024)) != -1) {
+                bos.write(buffer, 0, read);
+            }
+            bos.flush();
+
+            fos.close();
+            bos.close();
+            is.close();
+            bis.close();
 
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
-            Log.d("dbCopy","IOException 발생함");
         }
     }
 }

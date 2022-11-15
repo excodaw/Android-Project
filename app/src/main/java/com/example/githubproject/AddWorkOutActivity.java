@@ -39,7 +39,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         db_delete= (Button) findViewById(R.id.db_delete);
 
 
-        dbHelper = new DBHelper(this, 1);
+        dbHelper = new DBHelper(AddWorkOutActivity.this, 1);
 
         db_save.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -49,7 +49,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         });
         db_select.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v2){
-                dbHelper.dbCopy();
+                dbHelper.dbCopy(AddWorkOutActivity.this);
                 db_view.setText(dbHelper.getResult());
             }
         });
