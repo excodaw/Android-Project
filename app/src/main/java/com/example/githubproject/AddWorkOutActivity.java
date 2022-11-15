@@ -49,7 +49,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         });
         db_select.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v2){
-                dbHelper.dbCopy(AddWorkOutActivity.this);
+                //dbHelper.dbCopy(AddWorkOutActivity.this);
                 db_view.setText(dbHelper.getResult());
             }
         });
