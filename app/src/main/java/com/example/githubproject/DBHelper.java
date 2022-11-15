@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "WorkOutDB.db";
@@ -82,6 +83,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return result;
     }
+
+    public ArrayList SelectAllWorkouts() {
+        String SELECT_QUERY = "SELECT * FROM 운동목록";
+        ArrayList workout_name = new ArrayList<ListViewAdapterData>();
+
+        Cursor cur =  getWritableDatabase().rawQuery(SELECT_QUERY, null);
+        if(cur != null && cur.moveToFirst()) {
+            do {
+                workout_name.add(new ListViewAdapterData(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getInt(3)));
+            }while(cur.moveToNext());
+        }
+        return workout_name;
+    }
+
     public void dbCopy(Activity act) {
 
         AssetManager am = act.getAssets();
