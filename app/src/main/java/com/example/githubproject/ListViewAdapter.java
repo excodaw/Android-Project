@@ -43,18 +43,18 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
         //이제 아이템에 존재하는 텍스트뷰 객체들을 view객체에서 찾아 가져온다
-        TextView workoutid = (TextView)view.findViewById(R.id.workoutid);
-        TextView workouttype = (TextView)view.findViewById(R.id.workouttype);
+//        TextView workoutid = (TextView)view.findViewById(R.id.workoutid);
+//        TextView workouttype = (TextView)view.findViewById(R.id.workouttype);
         TextView workoutname = (TextView)view.findViewById(R.id.workoutname);
-        TextView tts = (TextView)view.findViewById(R.id.item_tts);
+//        TextView tts = (TextView)view.findViewById(R.id.item_tts);
 
         //현재 포지션에 해당하는 아이템에 글자를 적용하기 위해 list배열에서 객체를 가져온다.
         ListViewAdapterData listdata = list.get(i);
 
-        workoutid.setText(Integer.toString(listdata.getNum()));
-        workouttype.setText(listdata.getWorkout_type());
+//        workoutid.setText(Integer.toString(listdata.getNum()));
+//        workouttype.setText(listdata.getWorkout_type());
         workoutname.setText(listdata.getWorkout_name());
-        tts.setText(listdata.getTts());
+//        tts.setText(listdata.getTts());
 
         return view;
     }
