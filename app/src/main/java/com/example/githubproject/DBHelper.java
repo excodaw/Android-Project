@@ -80,18 +80,17 @@ public class DBHelper extends SQLiteOpenHelper {
                     + cursor.getInt(3)
                     + "\n";
         }
-
         return result;
     }
 
     public ArrayList SelectAllWorkouts() {
-        String SELECT_QUERY = "SELECT * FROM 운동목록";
+        String SELECT_QUERY = "SELECT Exercise_Name FROM 운동목록";
         ArrayList workout_name = new ArrayList<String>();
 
         Cursor cur =  getWritableDatabase().rawQuery(SELECT_QUERY, null);
         if(cur != null && cur.moveToFirst()) {
             do {
-                workout_name.add(new ListViewAdapterData(cur.getInt(0), cur.getString(1), cur.getString(2), cur.getInt(3)));
+                workout_name.add(cur.getString(0));
             }while(cur.moveToNext());
         }
         return workout_name;
