@@ -86,7 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList SelectAllWorkouts() {
         String SELECT_QUERY = "SELECT * FROM 운동목록";
-        ArrayList workout_name = new ArrayList<ListViewAdapterData>();
+        ArrayList workout_name = new ArrayList<String>();
 
         Cursor cur =  getWritableDatabase().rawQuery(SELECT_QUERY, null);
         if(cur != null && cur.moveToFirst()) {
