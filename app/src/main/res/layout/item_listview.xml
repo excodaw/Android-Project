@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="7dp"
-    android:padding="10dp"
-    >
-    <RelativeLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:text="New Text"
+        android:id="@+id/worktouename"
+        android:textSize="24dp"
+        android:textColor="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_weight="2" />
 
-        <TextView
-            android:id="@+id/workoutname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:textSize="30dp"
-            android:text="벤치프레스"
-            />
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</LinearLayout>
