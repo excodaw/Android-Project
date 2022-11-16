@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                                 return true;
                             case R.id.add_workout:
                                 startActivity(new Intent(getApplicationContext(), AddWorkOutActivity.class));
+                                return true;
+                            case R.id.add_result:
+                                startActivity(new Intent(getApplicationContext(), AddResultActivity.class));
                             default:
                                 return false;
                         }

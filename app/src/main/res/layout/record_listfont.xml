@@ -6,6 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:textColor="@color/white"
-    android:textSize="20dp"
+    android:textSize="31dp"
     >
 </TextView>
