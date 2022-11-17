@@ -39,6 +39,43 @@ public class RecordFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_record, container, false);
+
+        ListView listView = view.findViewById(R.id.record_listView);
+
+        List<String> list = new ArrayList<>();
+        list.add("몸무게");
+        list.add("체지방");
+        list.add("골격근");
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), R.layout.record_listfont,list);
+        listView.setAdapter(arrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    //click 몸무게
+
+                    Intent intent = new Intent(getActivity(), record_listview_weight.class);
+                    startActivity(intent);
+
+                }else if(position == 1){
+                    //click 체지방
+
+                    Intent intent = new Intent(getActivity(), record_listview_BodyFat.class);
+                    startActivity(intent);
+
+                }else if(position == 2){
+                    //click 골격근
+
+                    Intent intent = new Intent(getActivity(), record_listview_muscle.class);
+                    startActivity(intent);
+
+                }else{
+
+                }
+            }
+        });
         return view;
     }
 }
