@@ -10,5 +10,5 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="골격근" />
+        android:text="근육량" />
 </FrameLayout>
