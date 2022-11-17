@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -42,11 +43,13 @@ public class ListViewItemAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item_listview, parent, false);
         }
-        TextView workoutname = (TextView) convertView.findViewById(R.id.worktouename);
+        TextView workoutname = (TextView) convertView.findViewById(R.id.worktoutname);
+        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.routinecheck);
 
         ListViewItem listViewItem = item_list.get(position);
 
         workoutname.setText(listViewItem.getWorkout());
+
         return convertView;
     }
 

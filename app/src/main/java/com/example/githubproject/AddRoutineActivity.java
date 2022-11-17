@@ -22,7 +22,6 @@ public class AddRoutineActivity extends AppCompatActivity {
     Button btn_abs;
     Button btn_rehabilitation;
     String type = new String();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

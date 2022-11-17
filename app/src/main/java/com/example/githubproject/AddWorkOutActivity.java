@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,8 +27,9 @@ import java.io.InputStream;
 public class AddWorkOutActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
-    EditText db_name, db_type;
+    EditText db_name;
     Spinner type_spin;
+    private static String Type;
     int ID;
 
     public boolean onCreateOptionsMenu(Menu menu)    {
@@ -39,11 +41,20 @@ public class AddWorkOutActivity extends AppCompatActivity {
             case R.id.add_menu:
                 if (db_name.getText().toString().length() != 0) {
                     SQLiteDatabase db = dbHelper.getReadableDatabase();
-                    Cursor cursor = db.rawQuery("SELECT COUNT (*) FROM 운동목록", null);
-                    ID = cursor.getInt(0) + 1;
-                    System.out.println("TAG" + ID);
-                    dbHelper.insert(ID, db_type.getText().toString(),
+                    type_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            Type = type_spin.getSelectedItem().toString();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    dbHelper.insert(17, Type,
                             db_name.getText().toString(), 0);
+                    Toast.makeText(this, db_name.getText().toString() + " 추가", Toast.LENGTH_LONG).show();
                 }
                 else {
                     Toast.makeText(this, "운동 이름을 입력해 주세요", Toast.LENGTH_LONG).show();
