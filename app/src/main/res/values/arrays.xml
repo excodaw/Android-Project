@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<string-array name="type_names">
+    <item>가슴</item>
+    <item>어깨</item>
+    <item>등</item>
+    <item>하체</item>
+    <item>팔</item>
+    <item>복근</item>
+    <item>재활</item>
+</string-array>
+
+</resources>
