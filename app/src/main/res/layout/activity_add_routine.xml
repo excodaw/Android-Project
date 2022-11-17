@@ -24,6 +24,7 @@
                 <Button
                     android:id="@+id/btn_chest"
                     android:layout_width="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="가슴" />
@@ -32,6 +33,7 @@
                     android:id="@+id/btn_shoulder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="어깨" />
 
@@ -39,6 +41,7 @@
                     android:id="@+id/btn_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="등" />
 
@@ -46,6 +49,7 @@
                     android:id="@+id/btn_lower_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="하체" />
 
@@ -53,6 +57,7 @@
                     android:id="@+id/btn_arm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="팔" />
 
@@ -60,8 +65,17 @@
                     android:id="@+id/btn_abs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:text="복근" />
+
+                <Button
+                    android:id="@+id/btn_rehabilitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="재활" />
             </LinearLayout>
         </HorizontalScrollView>
 

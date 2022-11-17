@@ -1,5 +1,7 @@
 package com.example.githubproject;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -48,10 +50,13 @@ public class WorkOutFragment extends Fragment {
         btn_lower_body = view.findViewById(R.id.btn_lower_body);
         btn_abs = view.findViewById(R.id.btn_abs);
         btn_arm = view.findViewById(R.id.btn_arm);
+        WL = view.findViewById(R.id.WorkOutList);
+        displayList();
 
         btn_chest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                displayList();
             }
         });
 
@@ -90,5 +95,17 @@ public class WorkOutFragment extends Fragment {
             }
         });
         return view;
+    }
+    void displayList() {
+        DBHelper helper = new DBHelper(getContext(), 1);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT Exercise_Name FROM 운동목록", null);
+        ListViewAdapter item = new ListViewAdapter();
+
+        while(cursor.moveToNext()) {
+            item.plusItem(cursor.getString(0));
+        }
+        WL.setAdapter(item);
     }
 }
