@@ -93,6 +93,8 @@
         <activity android:name=".Alarm_activity" />
 
         <receiver android:name=".AlarmReceiver" />
+        <activity android:name=".TTS_activity"/>
+
     </application>
 
 </manifest>
