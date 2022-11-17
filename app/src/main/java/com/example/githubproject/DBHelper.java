@@ -63,8 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Person Table 조회
-    public String getResult() {
-        // 읽기가 가능하게 DB 열기
+    public String getResult() {        // 읽기가 가능하게 DB 열기
         SQLiteDatabase db = getReadableDatabase();
         String result = "";
 
