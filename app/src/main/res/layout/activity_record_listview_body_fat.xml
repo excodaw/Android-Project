@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".record_listview_BodyFat">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="체지방률" />
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </FrameLayout>

@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     RecordFragment RecordFragment;
     BottomNavigationView bottomNavigationView;
 
-    DBHelper dbHelper;
-
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
@@ -64,9 +62,6 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-
-        dbHelper = new DBHelper(MainActivity.this,1);
-        dbHelper.dbCopy(MainActivity.this);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
