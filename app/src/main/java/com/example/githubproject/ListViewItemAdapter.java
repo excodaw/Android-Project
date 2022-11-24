@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ListViewItemAdapter extends BaseAdapter {
 
-    private ArrayList<ListViewItem> item_list = new ArrayList<ListViewItem>();
+    private ArrayList<ListViewAdapterData> item_list = new ArrayList<ListViewAdapterData>();
 
     public ListViewItemAdapter() {}
     @Override
@@ -46,17 +46,16 @@ public class ListViewItemAdapter extends BaseAdapter {
         TextView workoutname = (TextView) convertView.findViewById(R.id.worktoutname);
         CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.routinecheck);
 
-        ListViewItem listViewItem = item_list.get(position);
-
-        workoutname.setText(listViewItem.getWorkout());
+        ListViewAdapterData listViewItem = item_list.get(position);
+        workoutname.setText(listViewItem.getWorkout_name());
 
         return convertView;
     }
 
     public void addItem(String name) {
-        ListViewItem item = new ListViewItem();
+        ListViewAdapterData item = new ListViewAdapterData();
 
-        item.setWorkout(name);
+        item.setWorkout_name(name);
 
         item_list.add(item);
     }

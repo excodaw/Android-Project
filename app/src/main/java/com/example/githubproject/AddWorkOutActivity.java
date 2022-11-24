@@ -40,11 +40,9 @@ public class AddWorkOutActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.add_menu:
                 if (db_name.getText().toString().length() != 0) {
-                    SQLiteDatabase db = dbHelper.getReadableDatabase();
                     type_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            Type = type_spin.getSelectedItem().toString();
                         }
 
                         @Override
@@ -52,9 +50,10 @@ public class AddWorkOutActivity extends AppCompatActivity {
 
                         }
                     });
-                    dbHelper.insert(17, Type,
+                    dbHelper.insert(1000, type_spin.getSelectedItem().toString(),
                             db_name.getText().toString(), 0);
                     Toast.makeText(this, db_name.getText().toString() + " 추가", Toast.LENGTH_LONG).show();
+                    dbHelper.close();
                 }
                 else {
                     Toast.makeText(this, "운동 이름을 입력해 주세요", Toast.LENGTH_LONG).show();
@@ -75,6 +74,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.type_names, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type_spin.setAdapter(typeAdapter);
+        dbHelper.close();
     }
 }
 

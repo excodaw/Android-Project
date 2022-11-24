@@ -38,7 +38,7 @@ public class ListViewAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview, parent, false);
         }
-        TextView exercisename = (TextView) convertView.findViewById(R.id.exercisename);
+        TextView exercisename = (TextView) convertView.findViewById(R.id.exercise_name);
 
         ListViewAdapterData listViewAdapterData = list_adapter.get(position);
 

@@ -19,6 +19,13 @@
         android:theme="@style/Theme.GitHubProject"
         tools:targetApi="31">
         <activity
+            android:name=".DeleteWorkOut"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AddRoutineActivity"
             android:exported="false">
             <meta-data
@@ -39,7 +46,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".AddResultActivity"
             android:exported="true">
@@ -47,7 +53,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".record_listview_muscle"
             android:exported="false">
@@ -93,8 +98,8 @@
         <activity android:name=".Alarm_activity" />
 
         <receiver android:name=".AlarmReceiver" />
-        <activity android:name=".TTS_activity"/>
 
+        <activity android:name=".TTS_activity" />
     </application>
 
 </manifest>

@@ -30,8 +30,6 @@ public class WorkOutFragment extends Fragment {
     Button btn_arm;
     ListView WL;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,5 +105,6 @@ public class WorkOutFragment extends Fragment {
             item.plusItem(cursor.getString(0));
         }
         WL.setAdapter(item);
+        db.close();
     }
 }
