@@ -6,15 +6,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/exercisename"
+        android:id="@+id/exercise_name"
         android:textSize="24dp"
         android:textColor="#ffffff"
         android:gravity="center_vertical"
         android:layout_weight="2" />
 
     <ImageView
+        android:id="@+id/tts_mark"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_baseline_mic_24"
+        />
 
 </LinearLayout>
