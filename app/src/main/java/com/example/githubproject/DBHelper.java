@@ -57,9 +57,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Person Table 데이터 삭제
     public void Delete(int ID) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM 운동목록 WHERE ID = '" + ID + "'");
-        db.close();
+        //if (ID>15){
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("DELETE FROM 운동목록 WHERE ID = '" + ID + "'");
+            db.close();
+        //}
     }
 
     // Person Table 조회
@@ -82,30 +84,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList SelectAllWorkouts() {
-        String SELECT_QUERY = "SELECT Exercise_Name FROM 운동목록";
-        ArrayList workout_name = new ArrayList<String>();
-
-        Cursor cur =  getWritableDatabase().rawQuery(SELECT_QUERY, null);
-        if(cur != null && cur.moveToFirst()) {
-            do {
-                workout_name.add(cur.getString(0));
-            }while(cur.moveToNext());
-        }
-        return workout_name;
-    }
+//    public ArrayList SelectAllWorkouts() {
+//        String SELECT_QUERY = "SELECT Exercise_Name FROM 운동목록";
+//        ArrayList workout_name = new ArrayList<String>();
+//
+//        Cursor cur =  getWritableDatabase().rawQuery(SELECT_QUERY, null);
+//        if(cur != null && cur.moveToFirst()) {
+//            do {
+//                workout_name.add(cur.getString(0));
+//            }while(cur.moveToNext());
+//        }
+//        return workout_name;
+//    }
 
     public void dbCopy(Activity act) {
 
         AssetManager am = act.getAssets();
-        File f = new File("/data/data/com.example.githubproject/databases/WorkOutDB.db");
+        File f = new File("/data/data/com.example.githubproject/databases/"+DATABASE_NAME);
 
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
 
         try {
 
-            InputStream is = am.open("WorkOutDB.db");
+            InputStream is = am.open(DATABASE_NAME);
             BufferedInputStream bis = new BufferedInputStream(is);
 
             // 만약에 파일이 있다면 복사 하지 않음

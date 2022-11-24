@@ -30,7 +30,8 @@ public class AddWorkOutActivity extends AppCompatActivity {
     EditText db_name;
     Spinner type_spin;
     private static String Type;
-    int ID;
+    final int ID = 17;
+
 
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.add_menu, menu);
@@ -47,9 +48,10 @@ public class AddWorkOutActivity extends AppCompatActivity {
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
-
+                            Type = "가슴";
                         }
                     });
+                    
                     dbHelper.insert(1000, type_spin.getSelectedItem().toString(),
                             db_name.getText().toString(), 0);
                     Toast.makeText(this, db_name.getText().toString() + " 추가", Toast.LENGTH_LONG).show();
