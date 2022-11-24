@@ -39,7 +39,7 @@ public class RoutineFragment extends Fragment {
         btn_routst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TTS_activity.class);
+                Intent intent = new Intent(getActivity(), RoutineStartActivity.class);
                 startActivity(intent);
             }
         });

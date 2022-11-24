@@ -107,5 +107,6 @@ public class WorkOutFragment extends Fragment {
             item.plusItem(cursor.getString(0));
         }
         WL.setAdapter(item);
+        db.close();
     }
 }

@@ -104,5 +104,6 @@ public class AddRoutineActivity extends AppCompatActivity {
             item.addItem(cursor.getString(0));
         }
         workoutlistview.setAdapter(item);
+        db.close();
     }
 }

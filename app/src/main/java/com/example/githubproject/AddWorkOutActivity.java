@@ -30,7 +30,8 @@ public class AddWorkOutActivity extends AppCompatActivity {
     EditText db_name;
     Spinner type_spin;
     private static String Type;
-    int ID;
+    final int ID = 17;
+
 
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.add_menu, menu);
@@ -40,7 +41,7 @@ public class AddWorkOutActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.add_menu:
                 if (db_name.getText().toString().length() != 0) {
-                    SQLiteDatabase db = dbHelper.getReadableDatabase();
+//                    SQLiteDatabase db = dbHelper.getReadableDatabase();
                     type_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -49,10 +50,10 @@ public class AddWorkOutActivity extends AppCompatActivity {
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
-
+                            Type = "가슴";
                         }
                     });
-                    dbHelper.insert(17, Type,
+                    dbHelper.insert(ID, Type,
                             db_name.getText().toString(), 0);
                     Toast.makeText(this, db_name.getText().toString() + " 추가", Toast.LENGTH_LONG).show();
                 }
