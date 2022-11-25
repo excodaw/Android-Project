@@ -28,6 +28,7 @@ public class WorkOutFragment extends Fragment {
     Button btn_lower_body;
     Button btn_abs;
     Button btn_arm;
+    Button btn_recover;
     ListView WL;
 
     @Override
@@ -48,57 +49,65 @@ public class WorkOutFragment extends Fragment {
         btn_lower_body = view.findViewById(R.id.btn_lower_body);
         btn_abs = view.findViewById(R.id.btn_abs);
         btn_arm = view.findViewById(R.id.btn_arm);
+        btn_recover = view.findViewById(R.id.btn_recover);
         WL = view.findViewById(R.id.WorkOutList);
-        displayList();
+        displayList("가슴");
 
         btn_chest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayList();
+                displayList("가슴");
             }
         });
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                displayList("등");
             }
         });
 
         btn_shoulder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                displayList("어깨");
             }
         });
 
         btn_lower_body.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                displayList("하체");
             }
         });
 
         btn_abs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                displayList("복근");
             }
         });
 
         btn_arm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                displayList("팔");
+            }
+        });
 
+        btn_recover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayList("재활");
             }
         });
         return view;
     }
-    void displayList() {
+    void displayList(String workoutname) {
         DBHelper helper = new DBHelper(getContext(), 1);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT Exercise_Name FROM 운동목록", null);
+        Cursor cursor = db.rawQuery("SELECT Exercise_Name FROM 운동목록 WHERE Exercise_Type = '" + workoutname + "'", null);
         ListViewAdapter item = new ListViewAdapter();
 
         while(cursor.moveToNext()) {
