@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="result_names">
+        <item>몸무게</item>
+        <item>체지방</item>
+        <item>골격근</item>
+    </string-array>
+
+</resources>
