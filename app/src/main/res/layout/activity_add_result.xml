@@ -28,7 +28,7 @@
                 android:id="@+id/record_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="오늘의 수치를 입력해주세요" />
+                android:hint="오늘의 수치를 입력해주세요." />
         </LinearLayout>
 
         <Spinner
