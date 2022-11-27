@@ -16,7 +16,7 @@ import java.util.TimerTask;
 public class RoutineStartActivity extends AppCompatActivity{
     LinearLayout timeCountSettingLV, timeCountLV;
     TextView hourTV, minuteTV, secondTV, finishTV;
-    Button startBtn, endBtn;
+    Button  endBtn;
     int hour, minute, second;
 
 
@@ -35,12 +35,8 @@ public class RoutineStartActivity extends AppCompatActivity{
         secondTV = (TextView)findViewById(R.id.secondTV);
         finishTV = (TextView)findViewById(R.id.finishTV);
 
-        startBtn = (Button)findViewById(R.id.startBtn);
         endBtn= (Button) findViewById((R.id.endBtn));
 
-        // 시작버튼 이벤트 1처리
-
-                //timeCountSettingLV.setVisibility(View.GONE);
                 timeCountLV.setVisibility(View.VISIBLE);
 
                 hourTV.setText("00");
