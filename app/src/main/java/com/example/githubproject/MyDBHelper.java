@@ -4,6 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyDBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME2 = "Records.db";
@@ -65,5 +69,42 @@ public class MyDBHelper extends SQLiteOpenHelper {
         }
 
         return result;
+    }
+
+    public ArrayList<Result> getResultList() {
+        ArrayList<Result> resultList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM Record", null);
+        while (cursor.moveToNext()) {
+            resultList.add(new Result(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2)
+                    )
+            );
+        }
+
+        return resultList;
+    }
+
+    public ArrayList<Result> getFilteredResultList(String type) {
+        ArrayList<Result> resultList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM Record", null);
+        while (cursor.moveToNext()) {
+            if(type.equals(cursor.getString(1)))
+                resultList.add(new Result(
+                                cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getString(2)
+                        )
+                );
+        }
+        Log.e("testtest", resultList.size() +"");
+        return resultList;
     }
 }
