@@ -2,4 +2,14 @@
     <string name="app_name">Exercise App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bef_exc">운동 전</string>
+    <string name="doi_exc">운동 중</string>
+    <string name="bre_exc">휴식</string>
+    <string name="end_exc">운동 끝</string>
+    <string name="num_set">0세트</string>
+    <string name="per_num">0회</string>
+    <string name="sta_btn">시작</string>
+    <string name="sto_btn">중지</string>
+    <string name="nex_btn">다음 세트</string>
+    <string name="end_btn">종료</string>
 </resources>
