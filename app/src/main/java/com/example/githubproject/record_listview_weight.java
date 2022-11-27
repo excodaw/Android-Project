@@ -6,45 +6,78 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
 
 public class record_listview_weight extends AppCompatActivity {
 
-    private LineChart chart;
+    private MyDBHelper mydbHelper;
+    private LineChart lineChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_listview_weight);
 
-        ArrayList<Entry> entry_chart1 = new ArrayList<>(); // 데이터를 담을 Arraylist
+        lineChart = (LineChart) findViewById(R.id.chart);
 
-        chart = (LineChart) findViewById(R.id.chart);
+        mydbHelper = new MyDBHelper(this, 1);
+        ArrayList<Entry> entries = new ArrayList<>(); // 데이터를 담을 Arraylist
+        ArrayList<Result> resultList = mydbHelper.getFilteredResultList("몸무게");
+
+        for(int i=0; i<resultList.size(); i++) {
+            entries.add(new Entry(i, resultList.get(i).getNumber()));
+        }
 
         LineData chartData = new LineData(); // 차트에 담길 데이터
+        LineDataSet lineDataSet = new LineDataSet(entries, "몸무게"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
+        lineDataSet.setLineWidth(2);
+        lineDataSet.setCircleRadius(6);
+        lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+        lineDataSet.setDrawCircleHole(true);
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawHorizontalHighlightIndicator(false);
+        lineDataSet.setDrawHighlightIndicators(false);
+        lineDataSet.setDrawValues(false);
+        chartData.addDataSet(lineDataSet); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
+        lineChart.getLegend().setTextColor(Color.parseColor("#FFFFFF"));
 
-        entry_chart1.add(new Entry(1, 1)); //entry_chart1에 좌표 데이터를 담는다.
-        entry_chart1.add(new Entry(2, 2));
-        entry_chart1.add(new Entry(3, 3));
-        entry_chart1.add(new Entry(4, 4));
-        entry_chart1.add(new Entry(5, 2));
-        entry_chart1.add(new Entry(6, 8));
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.WHITE);
+        xAxis.enableGridDashedLine(8, 24, 0);
+        xAxis.setLabelCount(resultList.size() - 1);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return resultList.get((int)value).getRecordDate();
+            }
+        });
 
+        YAxis yLAxis = lineChart.getAxisLeft();
+        yLAxis.setTextColor(Color.WHITE);
 
-        LineDataSet lineDataSet1 = new LineDataSet(entry_chart1, "LineGraph1"); // 데이터가 담긴 Arraylist 를 LineDataSet 으로 변환한다.
+        YAxis yRAxis = lineChart.getAxisRight();
+        yRAxis.setDrawLabels(false);
+        yRAxis.setDrawAxisLine(false);
+        yRAxis.setDrawGridLines(false);
 
-        lineDataSet1.setColor(Color.RED); // 해당 LineDataSet의 색 설정 :: 각 Line 과 관련된 세팅은 여기서 설정한다.
+        Description description = new Description();
+        description.setText("");
 
-        chartData.addDataSet(lineDataSet1); // 해당 LineDataSet 을 적용될 차트에 들어갈 DataSet 에 넣는다.
-
-        chart.setData(chartData); // 차트에 위의 DataSet을 넣는다.
-
-        chart.invalidate(); // 차트 업데이트
-        chart.setTouchEnabled(false); // 차트 터치 disable
-
+        lineChart.setDoubleTapToZoomEnabled(false);
+        lineChart.setDrawGridBackground(false);
+        lineChart.setDescription(description);
+        lineChart.invalidate();
+        lineChart.setTouchEnabled(false);
+        lineChart.setData(chartData);
     }
 }
