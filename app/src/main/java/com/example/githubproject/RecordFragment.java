@@ -10,20 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.githubproject.ImageViewScrolling.IEventEnd;
-import com.example.githubproject.ImageViewScrolling.ImageViewScrolling;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class RecordFragment extends Fragment implements IEventEnd {
+public class RecordFragment extends Fragment{
 
     public static RecordFragment newInstance(String param1, String param2) {
         RecordFragment fragment = new RecordFragment();
@@ -31,12 +23,6 @@ public class RecordFragment extends Fragment implements IEventEnd {
         fragment.setArguments(args);
         return fragment;
     }
-
-    ImageView btn_up,btn_down;
-    ImageViewScrolling image,image2,image3;
-    TextView txt_score;
-
-    int count_done;
 
 
 
@@ -60,43 +46,6 @@ public class RecordFragment extends Fragment implements IEventEnd {
         list.add("몸무게");
         list.add("체지방");
         list.add("골격근");
-
-        btn_down = (ImageView)view.findViewById(R.id.btn_down);
-        btn_up = (ImageView)view.findViewById(R.id.btn_up);
-
-        image = (ImageViewScrolling) view.findViewById(R.id.image);
-        image2 = (ImageViewScrolling) view.findViewById(R.id.image2);
-        image3 = (ImageViewScrolling) view.findViewById(R.id.image3);
-
-
-        image.setEventEnd(RecordFragment.this);
-        image2.setEventEnd(RecordFragment.this);
-        image3.setEventEnd(RecordFragment.this);
-
-
-        btn_up.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(Common.SCORE >=50)
-                {
-                    btn_up.setVisibility(View.VISIBLE);
-                    btn_down.setVisibility(View.VISIBLE);
-
-                    image.setValueRandom(new Random().nextInt(6),
-                            new Random().nextInt((15-5)+1)+5);
-                    image2.setValueRandom(new Random().nextInt(6),
-                            new Random().nextInt((15-5)+1)+5);
-                    image3.setValueRandom(new Random().nextInt(6),
-                            new Random().nextInt((15-5)+1)+5);
-
-                    Common.SCORE -=50;
-                }
-                else{
-
-                }
-            }
-
-        });
 
 
 
@@ -134,16 +83,4 @@ public class RecordFragment extends Fragment implements IEventEnd {
 
     }
 
-    @Override
-    public void eventEnd(int result, int count) {
-        if(count_done < 2)
-            count_done++;
-        else
-        {
-            btn_down.setVisibility(View.GONE);
-            btn_up.setVisibility(View.VISIBLE);
-
-            count_done = 0;
-        }
-    }
 }

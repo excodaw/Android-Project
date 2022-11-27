@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ public class AddResultActivity extends AppCompatActivity {
     Button record_save,record_select;
     EditText record_id, record_type,record_date;
     TextView record_view;
+    Spinner type_spins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +32,19 @@ public class AddResultActivity extends AppCompatActivity {
         record_save = (Button) findViewById(R.id.record_save);
         record_select = (Button) findViewById(R.id.record_select);
         record_id = (EditText) findViewById(R.id.record_id);
-        record_type = (EditText) findViewById(R.id.record_type);
         record_view = (TextView) findViewById(R.id.record_view);
         record_date = (EditText) findViewById(R.id.record_date);
 
         mydbHelper = new MyDBHelper(this, 1);
+        type_spins = findViewById(R.id.spinner_types);
+
+        ArrayAdapter typeAdapter = ArrayAdapter.createFromResource(this, R.array.result_names, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        type_spins.setAdapter(typeAdapter);
 
         record_save.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), record_type.getText().toString(), record_date.getText().toString());
+                mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), record_date.getText().toString());
             }
         });
         record_select.setOnClickListener(new View.OnClickListener(){

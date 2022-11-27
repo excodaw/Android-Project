@@ -16,7 +16,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     // Person Table 생성
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Record(number INT,Record_Type TEXT,Record_Date TEXT)");
+        db.execSQL("CREATE TABLE Record(number INT,Record_Type TEXT,Record_Date DATETIME DEFAULT (datetime('now','localtime')))");
     }
 
     // Person Table Upgrade
