@@ -22,7 +22,6 @@ public class RoutineRunFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_routine_run, container, false);
 
         TextView Before_exc = view.findViewById(R.id.Before_exc);
@@ -36,6 +35,7 @@ public class RoutineRunFragment extends Fragment {
         Button stop_btn = view.findViewById(R.id.stop_btn);
         Button end_btn = view.findViewById(R.id.end_btn);
 
+        // 세트 수 세트 당 횟수 변수
         final int[] setnum = {0};
         final int[] numperset = {0};
 
@@ -43,6 +43,8 @@ public class RoutineRunFragment extends Fragment {
         // 세트 당 횟수 올리기, 세트수 증가
         TimerTask timerTask1 = new TimerTask() {
             @Override
+            //텍스트 숫자 업데이트마다 tts출력 하면 될지도
+            //세트 당 횟수가 25(임시)면 세트 수 증가 아니면 계속 실행
             public void run() {
                 if (setnum[0] != 25) {
                     numperset[0]++;
@@ -50,6 +52,7 @@ public class RoutineRunFragment extends Fragment {
                 }
                 else {
                     setnum[0]++;
+                    //세트 수가 3(임시)면 운동 종료 아니면 계속 실행
                     if (numperset[0] != 3) {
                         numperset[0] = 0;
                         set_num.setText(setnum[0]);
@@ -70,6 +73,7 @@ public class RoutineRunFragment extends Fragment {
             }
         };
 
+        //시작 버튼
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +87,7 @@ public class RoutineRunFragment extends Fragment {
 
             }
         });
+        //다음 세트 버튼
         next_set_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +101,7 @@ public class RoutineRunFragment extends Fragment {
             }
         });
 
+        //중지 버튼
         stop_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
