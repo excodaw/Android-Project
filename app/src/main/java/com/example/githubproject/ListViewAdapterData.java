@@ -14,5 +14,9 @@ public class ListViewAdapterData {
     public void set_id(int id) {this.id = id;}
     public void setWorkout_type(String workout_type) {this.workout_type = workout_type;}
     public void setWorkout_name(String workout_name) {this.workout_name = workout_name;}
+    public boolean checked=false;
+    public boolean isChecked(){
+        return checked;
+    }
     public void setTts(int tts) {this.tts = tts;}
 }

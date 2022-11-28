@@ -2,6 +2,7 @@ package com.example.githubproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,11 +31,17 @@ public class AddRoutineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_routine);
 
+
         workoutlistview = (ListView) findViewById(R.id.WorkOutList_in_routine);
+
         displayList();
+    }
+    public boolean isChecked(String s){
+        return true;
     }
 
     void displayList() {
+        items= new ArrayList<Preparation_Item>();
         DBHelper helper = new DBHelper(this, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
 
@@ -42,8 +49,11 @@ public class AddRoutineActivity extends AppCompatActivity {
         ListViewItemAdapter item = new ListViewItemAdapter();
 
         while(cursor.moveToNext()) {
-            item.addItem(cursor.getString(0));
+            isChecked(cursor.getString(0));
+            item.addItem(true, cursor.getString(0));
         }
+
+
         workoutlistview.setAdapter(item);
         db.close();
     }
