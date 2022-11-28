@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import java.util.List;
 
 public class record_listview_BodyFat extends AppCompatActivity {
 
+    private MyDBHelper mydbHelper;
     private LineChart lineChart;
 
     @Override
@@ -41,15 +43,14 @@ public class record_listview_BodyFat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_listview_body_fat);
 
+        mydbHelper = new MyDBHelper(this, 1);
         lineChart = (LineChart)findViewById(R.id.chart2);
 
         List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(1, 1));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(3, 0));
-        entries.add(new Entry(4, 4));
-        entries.add(new Entry(5, 3));
-        entries.add(new Entry(8, 6));
+        ArrayList<Result> resultList = mydbHelper.getFilteredResultList("체지방");
+        for(int i=0; i<resultList.size(); i++) {
+            entries.add(new Entry(i, resultList.get(i).getNumber()));
+        }
 
         LineDataSet lineDataSet = new LineDataSet(entries, "체지방");
         lineDataSet.setLineWidth(2);
@@ -61,6 +62,8 @@ public class record_listview_BodyFat extends AppCompatActivity {
         lineDataSet.setDrawHorizontalHighlightIndicator(false);
         lineDataSet.setDrawHighlightIndicators(false);
         lineDataSet.setDrawValues(false);
+        lineChart.getLegend().setTextColor(Color.parseColor("#FFFFFF"));
+
 
         LineData lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
@@ -69,6 +72,13 @@ public class record_listview_BodyFat extends AppCompatActivity {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.WHITE);
         xAxis.enableGridDashedLine(8, 24, 0);
+        xAxis.setLabelCount(resultList.size() - 1);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return resultList.get((int)value).getRecordDate();
+            }
+        });
 
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.WHITE);

@@ -28,26 +28,13 @@
                 android:id="@+id/record_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="오늘의 수치를 입력해주세요" />
+                android:hint="오늘의 수치를 입력해주세요." />
         </LinearLayout>
 
         <Spinner
             android:id="@+id/spinner_types"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/record_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="yyyy-mm-dd 날짜를 적어주세요" />
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"

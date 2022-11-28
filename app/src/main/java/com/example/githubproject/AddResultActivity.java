@@ -16,11 +16,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AddResultActivity extends AppCompatActivity {
 
     MyDBHelper mydbHelper;
     Button record_save,record_select;
-    EditText record_id, record_type,record_date;
+    EditText record_id, record_type;
     TextView record_view;
     Spinner type_spins;
 
@@ -33,7 +36,6 @@ public class AddResultActivity extends AppCompatActivity {
         record_select = (Button) findViewById(R.id.record_select);
         record_id = (EditText) findViewById(R.id.record_id);
         record_view = (TextView) findViewById(R.id.record_view);
-        record_date = (EditText) findViewById(R.id.record_date);
 
         mydbHelper = new MyDBHelper(this, 1);
         type_spins = findViewById(R.id.spinner_types);
@@ -44,9 +46,13 @@ public class AddResultActivity extends AppCompatActivity {
 
         record_save.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), record_date.getText().toString());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String currentDate = simpleDateFormat.format(new Date());
+
+                mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
             }
         });
+
         record_select.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v2){
                 record_view.setText(mydbHelper.getResult());
