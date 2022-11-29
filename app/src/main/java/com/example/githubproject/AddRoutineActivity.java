@@ -71,6 +71,7 @@ public int count=0;
                                 r_db.close();
                             }
                         }
+
                         db.close();
 //                        Routine_DBHelper r_helper = new Routine_DBHelper(this,1);
 //                                SQLiteDatabase r_db = r_helper.getWritableDatabase();
