@@ -56,12 +56,10 @@ public class DBHelper extends SQLiteOpenHelper {
 //    }
 
     // Person Table 데이터 삭제
-    public void Delete(int ID) {
-        //if (ID>15){
+    public void delete(String name) {
             SQLiteDatabase db = getWritableDatabase();
-            db.execSQL("DELETE FROM 운동목록 WHERE ID = '" + ID + "'");
+            db.execSQL("DELETE FROM 운동목록 WHERE Exercise_Name = '" + name + "'");
             db.close();
-        //}
     }
 
     // Person Table 조회
