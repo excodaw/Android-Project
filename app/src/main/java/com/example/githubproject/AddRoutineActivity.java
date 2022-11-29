@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,14 +32,40 @@ public int count=0;
         switch(items.getItemId()) {
             case R.id.add_menu:
                 for (int i=0; i<item.getCount(); i++){
-                    if (item.isChecked(i)== true) {
+                    if (item.isChecked(i)== false) {
                         count++;
-                        Toast.makeText(this, ""+count, Toast.LENGTH_LONG).show();
+                        }
 
+                    else if (item.isChecked(i)==true){
+                        Log.v("tag","name="+item.getItem(i));
+                        DBHelper helper = new DBHelper(this, 1);
+                        SQLiteDatabase db = helper.getReadableDatabase();
+
+                        Cursor cursor = db.rawQuery("SELECT * FROM 운동목록", null);
+
+                        while(cursor.moveToNext()) {
+                            if (cursor.getString(2).equals(item.getItem(i).toString())){
+                                Routine_DBHelper r_helper = new Routine_DBHelper(this,1);
+                                SQLiteDatabase r_db = r_helper.getWritableDatabase();
+
+                                r_helper.insert(item.getItem(i).toString(),0, cursor.getInt(3));
+                                r_db.close();
+                            }
+                        }
+
+                        db.close();
+//                        Routine_DBHelper r_helper = new Routine_DBHelper(this,1);
+//                                SQLiteDatabase r_db = r_helper.getWritableDatabase();
+//                                r_helper.insert(item.getItem(i).toString(),0,0);
+//                                r_db.close();
                     }
-                    else {
-//                        Toast.makeText(this, "운동을 골라주세요", Toast.LENGTH_LONG).show();
-                    }
+                }
+                if (count==16){
+                    Toast.makeText(this, "운동을 골라주세요", Toast.LENGTH_LONG).show();
+                    count=0;
+                }
+                else if(count!=16){
+                    Toast.makeText(this, "루틴 저장 완료", Toast.LENGTH_LONG).show();
                 }
 
             default:

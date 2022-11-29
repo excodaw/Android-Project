@@ -26,7 +26,7 @@ public class ListViewItemAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return item_list.get(position);
+        return item_list.get(position).getWorkout_name();
     }
 
     @Override
