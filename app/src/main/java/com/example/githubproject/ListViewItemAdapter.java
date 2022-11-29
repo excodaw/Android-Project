@@ -62,8 +62,6 @@ public class ListViewItemAdapter extends BaseAdapter {
         workoutname.setText(listViewItem.getWorkout_name());
         checkBox.setChecked(isChecked((position)));
 
-
-
         return convertView;
     }
 

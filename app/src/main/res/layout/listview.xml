@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:src="@drawable/ic_baseline_mic_24"
+        android:visibility="invisible"
         />
 
 </LinearLayout>

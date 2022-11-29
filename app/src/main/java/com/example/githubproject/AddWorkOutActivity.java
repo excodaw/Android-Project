@@ -1,8 +1,10 @@
 package com.example.githubproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -29,9 +31,6 @@ public class AddWorkOutActivity extends AppCompatActivity {
     DBHelper dbHelper;
     EditText db_name;
     Spinner type_spin;
-    private static String Type;
-    final int ID = 17;
-
 
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.add_menu, menu);
@@ -45,10 +44,8 @@ public class AddWorkOutActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         }
-
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
-                            Type = "가슴";
                         }
                     });
                     
@@ -77,6 +74,11 @@ public class AddWorkOutActivity extends AppCompatActivity {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type_spin.setAdapter(typeAdapter);
         dbHelper.close();
+    }
+
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }
 
