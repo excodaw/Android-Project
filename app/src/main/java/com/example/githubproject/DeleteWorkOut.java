@@ -32,7 +32,7 @@ public class DeleteWorkOut extends AppCompatActivity {
         ListViewItemAdapter item = new ListViewItemAdapter();
 
         while(cursor.moveToNext()) {
-            item.addItem(false,cursor.getString(0));
+            item.addItem(cursor.getString(0));
         }
         dlt_list.setAdapter(item);
         db.close();

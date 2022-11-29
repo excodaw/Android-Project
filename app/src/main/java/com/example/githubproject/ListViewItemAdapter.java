@@ -35,6 +35,7 @@ public class ListViewItemAdapter extends BaseAdapter {
     }
 
     public boolean isChecked(int position){return item_list.get(position).checked;}
+    public boolean isChecked_false(int position){return item_list.get(position).checked=false;}
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -66,12 +67,8 @@ public class ListViewItemAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(boolean b, String name) {
+    public void addItem(String name) {
         ListViewAdapterData item = new ListViewAdapterData();
-
-
-
-
 
         item.setWorkout_name(name);
 
