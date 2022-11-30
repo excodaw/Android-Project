@@ -16,7 +16,7 @@ public class Routine_DBHelper extends SQLiteOpenHelper{
         // Person Table 생성
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE Routine(Exercise_Name TEXT,Time INT,TTS INT)");
+            db.execSQL("CREATE TABLE Routine(Routine_Name TEXT,Exercise_Name TEXT,Time INT,TTS INT)");
         }
 
         // Person Table Upgrade
@@ -27,9 +27,9 @@ public class Routine_DBHelper extends SQLiteOpenHelper{
         }
 
         // Person Table 데이터 입력
-        public void insert(String Exercise_Name, int Time, int TTS) {
+        public void insert(String Routine_Name, String Exercise_Name, int Time, int TTS) {
             SQLiteDatabase db = getWritableDatabase();
-            db.execSQL("INSERT INTO Routine VALUES('" + Exercise_Name + "', " + Time + ", " + TTS + ")");
+            db.execSQL("INSERT INTO 운동목록 VALUES("+ Routine_Name + ", '" + Exercise_Name +"','"+ Time + "', "+ TTS + ")");
             db.close();
         }
 

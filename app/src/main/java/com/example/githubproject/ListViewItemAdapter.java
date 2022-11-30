@@ -26,13 +26,16 @@ public class ListViewItemAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return item_list.get(position);
+        return item_list.get(position).getWorkout_name();
     }
 
     @Override
     public long getItemId(int position) {
         return position;
     }
+
+    public boolean isChecked(int position){return item_list.get(position).checked;}
+    public boolean isChecked_false(int position){return item_list.get(position).checked=false;}
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -45,9 +48,19 @@ public class ListViewItemAdapter extends BaseAdapter {
         }
         TextView workoutname = (TextView) convertView.findViewById(R.id.worktoutname);
         CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.routinecheck);
+        checkBox.setChecked(item_list.get(position).checked);
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean newState= !item_list.get(position).isChecked();
+                item_list.get(position).checked=newState;
+            }
+        });
 
         ListViewAdapterData listViewItem = item_list.get(position);
         workoutname.setText(listViewItem.getWorkout_name());
+        checkBox.setChecked(isChecked((position)));
 
         return convertView;
     }
