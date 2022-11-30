@@ -45,13 +45,13 @@ public class AddRoutineActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 //전체를 감싸기 or 루틴 생성 창 들어가기 전 정하고 들어가기 택 1 해야함
                 builder.setTitle("루틴 생성").setMessage("루틴 이름을 입력하세요").setView(et).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int which) {
                         for (int i=0; i<item.getCount(); i++){
                             if (item.isChecked(i)== false) {
                                 count++;
                             }
                             else if (item.isChecked(i)==true){
-                                DBHelper helper = new DBHelper(AddRoutineActivity.this, 1);
+                                DBHelper helper = new DBHelper(getApplicationContext(), 1);
                                 SQLiteDatabase db = helper.getReadableDatabase();
 
                                 Cursor cursor = db.rawQuery("SELECT * FROM 운동목록", null);
@@ -59,12 +59,13 @@ public class AddRoutineActivity extends AppCompatActivity {
                                 while(cursor.moveToNext()) {
                                     if (cursor.getString(2).equals(item.getItem(i).toString())){
 
+
                                         Log.v("Tag", "name1" + cursor.getString(2) + "name2" + item.getItem(i));
-//                                        Routine_DBHelper r_helper = new Routine_DBHelper(AddRoutineActivity.this,1);
-//                                        SQLiteDatabase r_db = r_helper.getWritableDatabase();
-//
-//                                        r_helper.insert(et.getText().toString(), item.getItem(i).toString(), 0, cursor.getInt(3));
-//                                        r_db.close();
+                                        Routine_DBHelper r_helper = new Routine_DBHelper(getApplicationContext(),1);
+                                        SQLiteDatabase r_db = r_helper.getWritableDatabase();
+
+                                        r_helper.insert(et.getText().toString(), item.getItem(i).toString(), 0, cursor.getInt(3));
+                                        r_db.close();
                                     }
                                 }
                                 db.close();
@@ -81,8 +82,7 @@ public class AddRoutineActivity extends AppCompatActivity {
                         }
                     }
                 });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                builder.show();
 
             default:
                 return super.onOptionsItemSelected(items);
