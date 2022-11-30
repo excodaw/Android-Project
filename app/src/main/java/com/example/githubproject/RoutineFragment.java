@@ -9,7 +9,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,29 +45,30 @@ public class RoutineFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_routine, container, false);
         routine_name_list = view.findViewById(R.id.routine_name_list);
         displayList();
-        routine_name_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setMessage("루틴 " + item.getName(position) + "를 실행하시겠습니까?");
 
-                alert.setPositiveButton("실행", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(getContext(), RoutineStartActivity.class));
-                    }
-                });
-                alert.show();
-            }
-        });
+//        routine_name_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//                alert.setMessage("루틴 " + item.getName(position) + "를 실행하시겠습니까?");
+//
+//                alert.setPositiveButton("실행", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        startActivity(new Intent(getContext(), RoutineStartActivity.class));
+//                    }
+//                });
+//                alert.show();
+//            }
+//        });
 
-        routine_name_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                return false;
-            }
-        });
+//        routine_name_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                return false;
+//            }
+//        });
         return view;
     }
     void displayList() {
@@ -79,4 +83,5 @@ public class RoutineFragment extends Fragment {
         routine_name_list.setAdapter(item);
         db.close();
     }
+    
 }

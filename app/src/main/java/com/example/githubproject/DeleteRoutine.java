@@ -44,12 +44,10 @@ public class DeleteRoutine extends AppCompatActivity {
                                 count++;
                             }
                             else if (item.isChecked(j) == true) {
-                                Log.v("list count", "list" + item.getItem(j));
                                 RoutineNameDBHelper nameDBHelper = new RoutineNameDBHelper(DeleteRoutine.this, 1);
                                 Routine_DBHelper helper = new Routine_DBHelper(DeleteRoutine.this, 1);
-
-                                helper.delete(item.getItem(j).toString());
-                                nameDBHelper.delete(item.getItem(j).toString());
+                                helper.delete(item.getName(j));
+                                nameDBHelper.delete(item.getName(j));
                             }
                         }
                         if (dlt_routine_list.getCount() == count){

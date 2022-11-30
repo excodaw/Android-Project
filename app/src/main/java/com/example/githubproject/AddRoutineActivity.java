@@ -57,9 +57,9 @@ public class AddRoutineActivity extends AppCompatActivity {
                                 Cursor cursor = db.rawQuery("SELECT * FROM 운동목록", null);
 
                                 while(cursor.moveToNext()) {
-                                    if (cursor.getString(2).equals(item.getItem(i).toString())){
+                                    if (cursor.getString(2).equals(item.getName(i).toString())){
                                         Routine_DBHelper r_helper = new Routine_DBHelper(getApplicationContext(),1);
-                                        r_helper.insert(et.getText().toString(), item.getItem(i).toString(), 0, cursor.getInt(3));
+                                        r_helper.insert(et.getText().toString(), item.getName(i).toString(), 0, cursor.getInt(3));
                                     }
                                 }
                                 db.close();
@@ -71,7 +71,6 @@ public class AddRoutineActivity extends AppCompatActivity {
                         }
                         else if(count != workoutlistview.getCount()){
                             RoutineNameDBHelper routineNameDBHelper = new RoutineNameDBHelper(getApplicationContext(), 1);
-                            Log.v("루틴이름", et.getText().toString());
                             routineNameDBHelper.insert(et.getText().toString());
                             Toast.makeText(AddRoutineActivity.this, "루틴 저장 완료", Toast.LENGTH_LONG).show();
                             finish();

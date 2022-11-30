@@ -26,7 +26,7 @@ public class ListViewItemAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return item_list.get(position).getWorkout_name();
+        return item_list.get(position);
     }
 
     @Override
@@ -39,7 +39,6 @@ public class ListViewItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos;
         final Context context = parent.getContext();
 
         if (convertView == null) {
@@ -71,5 +70,9 @@ public class ListViewItemAdapter extends BaseAdapter {
         item.setWorkout_name(name);
 
         item_list.add(item);
+    }
+
+    public String getName(int position) {
+        return item_list.get(position).getWorkout_name();
     }
 }
