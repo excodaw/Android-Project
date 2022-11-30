@@ -52,4 +52,8 @@ public class ListViewAdapter extends BaseAdapter {
 
         list_adapter.add(list);
     }
+    public String getName(int position) {
+        return list_adapter.get(position).getWorkout_name();
+    }
+
 }

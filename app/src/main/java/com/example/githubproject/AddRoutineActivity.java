@@ -58,14 +58,8 @@ public class AddRoutineActivity extends AppCompatActivity {
 
                                 while(cursor.moveToNext()) {
                                     if (cursor.getString(2).equals(item.getItem(i).toString())){
-
-
-                                        Log.v("Tag", "name1" + cursor.getString(2) + "name2" + item.getItem(i));
                                         Routine_DBHelper r_helper = new Routine_DBHelper(getApplicationContext(),1);
-                                        SQLiteDatabase r_db = r_helper.getWritableDatabase();
-
                                         r_helper.insert(et.getText().toString(), item.getItem(i).toString(), 0, cursor.getInt(3));
-                                        r_db.close();
                                     }
                                 }
                                 db.close();
@@ -76,6 +70,9 @@ public class AddRoutineActivity extends AppCompatActivity {
                             count=0;
                         }
                         else if(count != workoutlistview.getCount()){
+                            RoutineNameDBHelper routineNameDBHelper = new RoutineNameDBHelper(getApplicationContext(), 1);
+                            Log.v("루틴이름", et.getText().toString());
+                            routineNameDBHelper.insert(et.getText().toString());
                             Toast.makeText(AddRoutineActivity.this, "루틴 저장 완료", Toast.LENGTH_LONG).show();
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
