@@ -40,14 +40,6 @@ public class AddWorkOutActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case R.id.add_menu:
                 if (db_name.getText().toString().length() != 0) {
-                    type_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        }
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                        }
-                    });
                     
                     dbHelper.insert(1000, type_spin.getSelectedItem().toString(),
                             db_name.getText().toString(), 0);

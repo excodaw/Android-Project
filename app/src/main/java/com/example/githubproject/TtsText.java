@@ -27,18 +27,16 @@ public class TtsText<Exercise_Name> extends AppCompatActivity {
     }
 
     public void bench_press () {
-        tts.speak("안녕하세요", TextToSpeech.QUEUE_FLUSH, null,null);
+        tts.speak("밴치 프레스", TextToSpeech.QUEUE_FLUSH, null,null);
     }
     public void shoulder_press () {
-
-        tts.speak("안녕하세요", TextToSpeech.QUEUE_FLUSH, null,null);
+        tts.speak("숄더 프레스", TextToSpeech.QUEUE_FLUSH, null,null);
     }
     public void dead_lift () {
-
-        tts.speak("안녕하세요", TextToSpeech.QUEUE_FLUSH, null,null);
+        tts.speak("데드 리프트", TextToSpeech.QUEUE_FLUSH, null,null);
     }
     public void squat () {
-        tts.speak("안녕하세요", TextToSpeech.QUEUE_FLUSH, null,null);
+        tts.speak("스쿼트", TextToSpeech.QUEUE_FLUSH, null,null);
     }
 
 }
