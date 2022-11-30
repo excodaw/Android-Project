@@ -22,7 +22,7 @@ public class RoutineNameDBHelper extends SQLiteOpenHelper {
 
     public void insert(String Routine_Name) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO Routine_Name VALUES("+ Routine_Name + ")");
+        db.execSQL("INSERT INTO Routine_Name VALUES('"+ Routine_Name + "')");
         db.close();
     }
 

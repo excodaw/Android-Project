@@ -29,7 +29,7 @@ public class Routine_DBHelper extends SQLiteOpenHelper{
         // Person Table 데이터 입력
         public void insert(String Routine_Name, String Exercise_Name, int Time, int TTS) {
             SQLiteDatabase db = getWritableDatabase();
-            db.execSQL("INSERT INTO Routine VALUES("+ Routine_Name + ", '" + Exercise_Name +"','"+ Time + "', "+ TTS + ")");
+            db.execSQL("INSERT INTO Routine VALUES('" + Routine_Name + "','" + Exercise_Name + "', " + Time + ", " + TTS + ")");
             db.close();
         }
 
