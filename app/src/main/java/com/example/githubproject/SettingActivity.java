@@ -11,6 +11,7 @@ public class SettingActivity extends AppCompatActivity {
 
     Button alarm_button;
     Button delete_btn;
+    Button routine_delete_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,7 @@ public class SettingActivity extends AppCompatActivity {
 
         alarm_button = findViewById(R.id.alarm_button);
         delete_btn = findViewById(R.id.workout_dlt);
+        routine_delete_btn = findViewById(R.id.routine_dlt);
 
         alarm_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +33,13 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), DeleteWorkOut.class));
+            }
+        });
+
+        routine_delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), DeleteRoutine.class));
             }
         });
     }

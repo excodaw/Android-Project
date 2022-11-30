@@ -1,17 +1,27 @@
 package com.example.githubproject;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 
 public class RoutineFragment extends Fragment {
+    ListViewAdapter item = new ListViewAdapter();
 
     public static RoutineFragment newInstance(String param1, String param2) {
         RoutineFragment fragment = new RoutineFragment();
@@ -20,7 +30,7 @@ public class RoutineFragment extends Fragment {
         return fragment;
     }
     private View view;
-    Button btn_routst;
+    ListView routine_name_list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,17 +42,46 @@ public class RoutineFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_routine, container, false);
+        routine_name_list = view.findViewById(R.id.routine_name_list);
+        displayList();
 
-        btn_routst = view.findViewById(R.id.btn_routst);
-        btn_routst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), RoutineStartActivity.class);
-                startActivity(intent);
-            }
-        });
+//        routine_name_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//                alert.setMessage("루틴 " + item.getName(position) + "를 실행하시겠습니까?");
+//
+//                alert.setPositiveButton("실행", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        startActivity(new Intent(getContext(), RoutineStartActivity.class));
+//                    }
+//                });
+//                alert.show();
+//            }
+//        });
+
+//        routine_name_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                return false;
+//            }
+//        });
         return view;
-    };
+    }
+    void displayList() {
+        RoutineNameDBHelper helper = new RoutineNameDBHelper(getContext(), 1);
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT Name FROM Routine_Name", null);
+
+        while(cursor.moveToNext()) {
+            item.plusItem(cursor.getString(0));
+        }
+        routine_name_list.setAdapter(item);
+        db.close();
+    }
+    
 }
