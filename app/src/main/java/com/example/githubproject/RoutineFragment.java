@@ -50,7 +50,7 @@ public class RoutineFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setMessage("루틴 " + item.getName(position) + "를 실행하시겠습니까?");
+                alert.setMessage("루틴 " + item.getName(position) + "실행하시겠습니까?");
 
                 alert.setPositiveButton("실행", new DialogInterface.OnClickListener() {
                     @Override
@@ -65,7 +65,16 @@ public class RoutineFragment extends Fragment {
         routine_name_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setMessage("루틴 " + item.getName(position) + "수정하시겠습니까?");
 
+                alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(getContext(), Routine_Sets_and_Reps_Settings.class));
+                    }
+                });
+                alert.show();
                 return false;
             }
         });
