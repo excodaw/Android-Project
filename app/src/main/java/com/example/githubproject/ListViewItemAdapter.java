@@ -1,6 +1,7 @@
 package com.example.githubproject;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,20 @@ public class ListViewItemAdapter extends BaseAdapter {
             public void onClick(View view) {
                 boolean newState= !item_list.get(position).isChecked();
                 item_list.get(position).checked=newState;
+
+                if (newState==true) {
+                    DBHelper helper = new DBHelper(context.getApplicationContext(), 1);
+                    SQLiteDatabase db = helper.getReadableDatabase();
+                    Routine_DBHelper r_helper = new Routine_DBHelper(context.getApplicationContext(), 1);
+                    r_helper.insert("루틴이름", item_list.get(position).getWorkout_name(), 0, 0);
+                    db.close();
+                } else if (newState==false) {
+                    DBHelper helper = new DBHelper(context.getApplicationContext(), 1);
+                    SQLiteDatabase db = helper.getReadableDatabase();
+                    Routine_DBHelper r_helper = new Routine_DBHelper(context.getApplicationContext(), 1);
+                    r_helper.delete2(item_list.get(position).getWorkout_name());
+                    db.close();
+                }
             }
         });
 

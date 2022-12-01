@@ -50,28 +50,15 @@ public class AddRoutineActivity extends AppCompatActivity {
                             if (item.isChecked(i)== false) {
                                 count++;
                             }
-                            else if (item.isChecked(i)==true){
-                                DBHelper helper = new DBHelper(getApplicationContext(), 1);
-                                SQLiteDatabase db = helper.getReadableDatabase();
-
-                                Cursor cursor = db.rawQuery("SELECT * FROM 운동목록", null);
-
-                                while(cursor.moveToNext()) {
-                                    if (cursor.getString(2).equals(item.getName(i).toString())){
-                                        Routine_DBHelper r_helper = new Routine_DBHelper(getApplicationContext(),1);
-                                        r_helper.insert(et.getText().toString(), item.getName(i).toString(), 0, cursor.getInt(3));
-                                    }
-                                }
-                                db.close();
-                            }
                         }
                         if (count == workoutlistview.getCount()){
                             Toast.makeText(AddRoutineActivity.this, "운동을 골라주세요", Toast.LENGTH_LONG).show();
                             count=0;
                         }
                         else if(count != workoutlistview.getCount()){
-                            RoutineNameDBHelper routineNameDBHelper = new RoutineNameDBHelper(getApplicationContext(), 1);
-                            routineNameDBHelper.insert(et.getText().toString());
+                            DBHelper helper = new DBHelper(getApplicationContext(), 1);
+//                            SQLiteDatabase db = helper.getReadableDatabase();
+//                            db.close();
                             Toast.makeText(AddRoutineActivity.this, "루틴 저장 완료", Toast.LENGTH_LONG).show();
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
