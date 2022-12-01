@@ -14,14 +14,10 @@ import java.util.TimerTask;
 
 public class RoutineRunFragment extends Fragment {
 
-    TextView Before_exc, doing_exc, break_exc,
-            end_exc, set_num, num_per_set;
-    Button start_btn, next_set_btn,
-            stop_btn, end_btn;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_routine_run, container, false);
 
         TextView Before_exc = view.findViewById(R.id.Before_exc);
