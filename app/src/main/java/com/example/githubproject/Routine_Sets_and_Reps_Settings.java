@@ -33,11 +33,33 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity {
         settings_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dialog = new Dialog(Routine_Sets_and_Reps_Settings.this);
-                dialog.setContentView(R.layout.custom_dialog);
-                workout_name = item.getName(position);
-                Log.v("Tag", workout_name);
-                dia();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Routine_Sets_and_Reps_Settings.this);
+                View dView = getLayoutInflater().inflate(R.layout.custom_dialog, null);
+
+                Spinner rep_spin = dView.findViewById(R.id.reps_spin);
+                Spinner set_spin = dView.findViewById(R.id.sets_spin);
+                Button apply_btn = dView.findViewById(R.id.apply_btn);
+
+//                ArrayAdapter rep_spin_adapter = ArrayAdapter.createFromResource(Routine_Sets_and_Reps_Settings.this, R.array.reps_num, android.R.layout.simple_spinner_item);
+//                rep_spin.setAdapter(rep_spin_adapter);
+//
+//                ArrayAdapter set_spin_adapter = ArrayAdapter.createFromResource(Routine_Sets_and_Reps_Settings.this, R.array.reps_num, android.R.layout.simple_spinner_item);
+//                set_spin.setAdapter(set_spin_adapter);
+
+                apply_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Routine_DBHelper routine_dbHelper = new Routine_DBHelper(Routine_Sets_and_Reps_Settings.this, 1);
+                        routine_dbHelper.update_rep(3, workout_name);
+                        routine_dbHelper.update_set(3, workout_name);
+                        Toast.makeText(getApplicationContext(), workout_name + "설정 완료", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+                });
+
+                builder.setView(dView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
@@ -56,28 +78,30 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity {
         settings_list.setAdapter(item);
         db.close();
     }
-
-    void dia() {
-        dialog.show();
-        Spinner rep_spin = dialog.findViewById(R.id.reps_spin);
-        Spinner set_spin = dialog.findViewById(R.id.sets_spin);
-        Button apply_btn = dialog.findViewById(R.id.apply_btn);
-//
-//        ArrayAdapter repAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.reps_num, android.R.layout.simple_spinner_item);
-//        rep_spin.setAdapter(repAdapter);
-//
-//        ArrayAdapter setAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.sets_num, android.R.layout.simple_spinner_item);
-//        set_spin.setAdapter(setAdapter);
-
-        apply_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Routine_DBHelper routine_dbHelper = new Routine_DBHelper(Routine_Sets_and_Reps_Settings.this, 1);
-                routine_dbHelper.update_rep(2, workout_name);
-                routine_dbHelper.update_set(2, workout_name);
-                Toast.makeText(getApplicationContext(), workout_name + "설정 완료", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        });
-    }
 }
+
+//                dialog = new Dialog(Routine_Sets_and_Reps_Settings.this);
+//                dialog.setContentView(R.layout.custom_dialog);
+//                workout_name = item.getName(position);
+//                Log.v("Tag", workout_name);
+//                Spinner rep_spin = dialog.findViewById(R.id.reps_spin);
+//                Spinner set_spin = dialog.findViewById(R.id.sets_spin);
+//                Button apply_btn = dialog.findViewById(R.id.apply_btn);
+//
+//                ArrayAdapter repAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.reps_num, android.R.layout.simple_spinner_item);
+//                rep_spin.setAdapter(repAdapter);
+//
+//                ArrayAdapter setAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.sets_num, android.R.layout.simple_spinner_item);
+//                set_spin.setAdapter(setAdapter);
+//
+//                apply_btn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Routine_DBHelper routine_dbHelper = new Routine_DBHelper(Routine_Sets_and_Reps_Settings.this, 1);
+//                        routine_dbHelper.update_rep(2, workout_name);
+//                        routine_dbHelper.update_set(2, workout_name);
+//                        Toast.makeText(getApplicationContext(), workout_name + "설정 완료", Toast.LENGTH_LONG).show();
+//                        dialog.dismiss();
+//                    }
+//                });
+//                dialog.show();
