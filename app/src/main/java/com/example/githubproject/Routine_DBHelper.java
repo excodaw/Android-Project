@@ -34,9 +34,9 @@ public class Routine_DBHelper extends SQLiteOpenHelper{
         }
 
     // Person Table 데이터 수정
-    public void Update( int Time ) {
+    public void Update( String Routine_Name ) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE Routine SET Time = Time WHERE Time = '" + Time + "'");
+        db.execSQL("UPDATE Routine SET Routine_Name = '"+ Routine_Name +"' WHERE Routine_Name='123214124124'");
         db.close();
     }
 
