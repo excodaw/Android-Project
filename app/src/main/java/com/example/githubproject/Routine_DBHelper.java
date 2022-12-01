@@ -46,4 +46,10 @@ public class Routine_DBHelper extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void delete2(String Exercise_name) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM Routine WHERE Exercise_Name = '" + Exercise_name + "'");
+        db.close();
+    }
+
 }
