@@ -23,12 +23,10 @@ public class CountDown extends AppCompatActivity {
 
         long duration = TimeUnit.MINUTES.toMillis(1);
 
-        new CountDownTimer(duration, 10000) {
+        new CountDownTimer(duration, 1000) {
             @Override
-            public void onTick(long millisUntilFinished) {
-                String sDuration = String.format(Locale.ENGLISH,"%02d : %02d"
-                        ,TimeUnit.MILLISECONDS.toMinutes(1)
-                        ,TimeUnit.MILLISECONDS.toSeconds(1) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(1)));
+            public void onTick(long l) {
+                String sDuration = String.format(Locale.ENGLISH,"%02d : %02d",TimeUnit.MILLISECONDS.toMinutes(1),TimeUnit.MILLISECONDS.toSeconds(1) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(1)));
                 textView.setText(sDuration);
             }
 

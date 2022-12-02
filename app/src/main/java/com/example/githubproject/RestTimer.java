@@ -33,13 +33,15 @@ public class RestTimer extends AppCompatActivity {
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
 
+        startTimer();
+
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mTimerRunning) {
                     pauseTimer();
                 }else {
-                    startTimer();
+
                 }
             }
         });
@@ -89,6 +91,7 @@ public class RestTimer extends AppCompatActivity {
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
     }
+
 
     private void updateCountDownText() {
         int minutes = (int) (mTimerLeftInMillis / 1000) / 60;
