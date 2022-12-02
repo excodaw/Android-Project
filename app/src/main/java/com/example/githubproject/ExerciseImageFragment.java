@@ -1,4 +1,4 @@
-package com.example.githubproject.ImageViewScrolling;
+package com.example.githubproject;
 
 import android.media.Image;
 import android.os.Bundle;
