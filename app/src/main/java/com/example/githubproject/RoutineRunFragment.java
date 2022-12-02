@@ -1,6 +1,7 @@
 package com.example.githubproject;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,10 @@ import androidx.fragment.app.Fragment;
 
 
 public class RoutineRunFragment extends Fragment {
-
+    String workout_name;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_routine_run, container, false);
 
         TextView set_num = view.findViewById(R.id.set_num);
@@ -36,11 +36,16 @@ public class RoutineRunFragment extends Fragment {
 
 
         String read_exc_name = "케이블 푸시 다운";
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            workout_name = bundle.getString("WORKOUT_NAME");
+            Log.v("TAG", workout_name);
+        }
 
         for (int i = 0; i < exc_svg.length; i++) {
             final int index;
             index = i;
-                if (read_exc_name.equals(exercise[index])) {
+                if (workout_name.equals(exercise[i])) {
                     exc_img.setImageResource(exc_svg[i]);
             }
 
