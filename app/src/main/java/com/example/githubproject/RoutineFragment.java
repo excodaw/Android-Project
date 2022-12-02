@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class RoutineFragment extends Fragment {
     ListViewAdapter item = new ListViewAdapter();
@@ -29,6 +30,7 @@ public class RoutineFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     private View view;
     ListView routine_name_list;
 
@@ -38,7 +40,7 @@ public class RoutineFragment extends Fragment {
         if (getArguments() != null) {
         }
     }
-    Context ct;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,42 +48,71 @@ public class RoutineFragment extends Fragment {
         routine_name_list = view.findViewById(R.id.routine_name_list);
         displayList();
 
-//        routine_name_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-//                alert.setMessage("루틴 " + item.getName(position) + "를 실행하시겠습니까?");
-//
-//                alert.setPositiveButton("실행", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        startActivity(new Intent(getContext(), RoutineStartActivity.class));
-//                    }
-//                });
-//                alert.show();
-//            }
-//        });
+        routine_name_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setMessage("루틴 " + item.getName(position) + "실행하시겠습니까?");
+                alert.setPositiveButton("실행", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        boolean check = false;
+                        Routine_DBHelper helper = new Routine_DBHelper(getContext(), 1);
+                        SQLiteDatabase db = helper.getReadableDatabase();
+                        Cursor cursor = db.rawQuery("SELECT Reps, Sets FROM Routine WHERE Routine_Name = '" + item.getName(position) + "'", null);
+                        while (cursor.moveToNext()) {
+                            if (cursor.getInt(0) == 0 || cursor.getInt(1) == 0) {
+                                check = true;
+                            }
+                        }
+                        db.close();
+                        if (check) {
+                            Toast.makeText(getContext(), "세트 수와 횟수가 설정되어있지 않습니다!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), Routine_Sets_and_Reps_Settings.class);
+                            intent.putExtra("RN", item.getName(position));
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getContext(), RoutineStartActivity.class);
+                            intent.putExtra("RN", item.getName(position));
+                            startActivity(intent);
+                        }
+                    }
+                });
+                alert.show();
+            }
+        });
+        routine_name_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setMessage("루틴 " + item.getName(position) + "수정하시겠습니까?");
 
-//        routine_name_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                return false;
-//            }
-//        });
+                alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(getContext(), Routine_Sets_and_Reps_Settings.class);
+                        intent.putExtra("RN", item.getName(position));
+                        startActivity(intent);
+                    }
+                });
+                alert.show();
+                return false;
+            }
+        });
         return view;
     }
+
     void displayList() {
         RoutineNameDBHelper helper = new RoutineNameDBHelper(getContext(), 1);
         SQLiteDatabase db = helper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT Name FROM Routine_Name", null);
 
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             item.plusItem(cursor.getString(0));
         }
         routine_name_list.setAdapter(item);
         db.close();
     }
-    
 }
+

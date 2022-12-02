@@ -19,6 +19,13 @@
         android:theme="@style/Theme.GitHubProject"
         tools:targetApi="31">
         <activity
+            android:name=".Routine_Sets_and_Reps_Settings"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DeleteRoutine"
             android:exported="false">
             <meta-data

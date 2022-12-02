@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/sets_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="세트" />
+
+    <Spinner
+        android:id="@+id/sets_spin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/reps_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="횟수" />
+
+    <Spinner
+        android:id="@+id/reps_spin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/apply_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00ff0000"
+        android:text="설정"
+        android:textColor="#ffffff"
+        android:layout_gravity="right" />
+
+
+
+</LinearLayout>
