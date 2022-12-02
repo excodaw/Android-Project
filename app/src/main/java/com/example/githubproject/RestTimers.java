@@ -1,17 +1,18 @@
 package com.example.githubproject;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.util.Locale;
 
-public class RestTimer extends AppCompatActivity {
+public class RestTimers extends Fragment {
     private static final long START_TIME_IN_MILLIS = 600000;
 
     private TextView mTextViewCountDown;
@@ -22,50 +23,6 @@ public class RestTimer extends AppCompatActivity {
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private long mTimerLeftInMillis = START_TIME_IN_MILLIS;
-
-    @SuppressLint("MissingInflatedId")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.rest_timer);
-
-        mTextViewCountDown = findViewById(R.id.text_view_countdown);
-
-        mButtonStartPause = findViewById(R.id.button_start_pause);
-        mButtonReset = findViewById(R.id.button_reset);
-        mButtonAdd = findViewById(R.id.button_add);
-
-        startTimer();
-
-        mButtonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseTimer();
-                mTimerLeftInMillis = mTimerLeftInMillis + 20000;
-                startTimer();
-            }
-        });
-
-        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTimerRunning) {
-                    pauseTimer();
-                }else {
-                    startTimer();
-                }
-            }
-        });
-
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
-            }
-        });
-
-        updateCountDownText();
-    }
 
     private void startTimer() {
         mCountDownTimer = new CountDownTimer(mTimerLeftInMillis, 1000) {
@@ -112,4 +69,51 @@ public class RestTimer extends AppCompatActivity {
 
         mTextViewCountDown.setText(timerLeftFormatted);
     }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.rest_timer, container, false);
+
+        mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
+
+        mButtonStartPause = view.findViewById(R.id.button_start_pause);
+        mButtonReset = view.findViewById(R.id.button_reset);
+        mButtonAdd = view.findViewById(R.id.button_add);
+
+        startTimer();
+
+        mButtonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseTimer();
+                mTimerLeftInMillis = mTimerLeftInMillis + 20000;
+                startTimer();
+            }
+        });
+
+        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTimerRunning) {
+                    pauseTimer();
+                }else {
+                    startTimer();
+                }
+            }
+        });
+
+        mButtonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetTimer();
+            }
+        });
+
+        updateCountDownText();
+        return view;
+    }
+
 }
