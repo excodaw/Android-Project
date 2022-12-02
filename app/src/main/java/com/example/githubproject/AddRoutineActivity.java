@@ -43,7 +43,6 @@ public class AddRoutineActivity extends AppCompatActivity {
             case R.id.add_menu:
                 final EditText et = new EditText(this);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                //전체를 감싸기 or 루틴 생성 창 들어가기 전 정하고 들어가기 택 1 해야함
                 builder.setTitle("루틴 생성").setMessage("루틴 이름을 입력하세요").setView(et).setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         for (int i=0; i<item.getCount(); i++){
@@ -51,7 +50,9 @@ public class AddRoutineActivity extends AppCompatActivity {
                                 count++;
                             } else if (item.isChecked(i)==true) {
                                 Routine_DBHelper r_helper = new Routine_DBHelper(getApplicationContext(), 1);
+
                                 r_helper.Update(et.getText().toString());
+
                             }
                         }
                         if (count == workoutlistview.getCount()){
@@ -59,6 +60,8 @@ public class AddRoutineActivity extends AppCompatActivity {
                             count=0;
                         }
                         else if(count != workoutlistview.getCount()){
+                            RoutineNameDBHelper nameDBHelper = new RoutineNameDBHelper(getApplicationContext(), 1);
+                            nameDBHelper.insert(et.getText().toString());
                             Toast.makeText(AddRoutineActivity.this, "루틴 저장 완료", Toast.LENGTH_LONG).show();
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));

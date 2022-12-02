@@ -57,9 +57,10 @@ public class ListViewItemAdapter extends BaseAdapter {
                 boolean newState= !item_list.get(position).isChecked();
                 item_list.get(position).checked=newState;
 
-                if (newState==true) {
+                if (newState == true) {
                     DBHelper helper = new DBHelper(context.getApplicationContext(), 1);
                     SQLiteDatabase db = helper.getReadableDatabase();
+
                     Cursor cursor = db.rawQuery("SELECT * FROM 운동목록", null);
                     while (cursor.moveToNext()) {
                         if (cursor.getString(2).equals(item_list.get(position).getWorkout_name())) {
@@ -67,8 +68,9 @@ public class ListViewItemAdapter extends BaseAdapter {
                             r_helper.insert("123214124124", item_list.get(position).getWorkout_name(), 0, cursor.getInt(3), 0, 0);
                         }
                     }
+
                     db.close();
-                } else if (newState==false) {
+                } else if (newState == false) {
                     DBHelper helper = new DBHelper(context.getApplicationContext(), 1);
                     SQLiteDatabase db = helper.getReadableDatabase();
                     Routine_DBHelper r_helper = new Routine_DBHelper(context.getApplicationContext(), 1);

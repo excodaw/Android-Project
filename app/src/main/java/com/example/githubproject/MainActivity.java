@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch(menuItem.getItemId()) {
                             case R.id.add_routine:
+                                Toast.makeText(MainActivity.this, "체크한 운동 순서에 따라 루틴이 생성됩니다", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(getApplicationContext(), AddRoutineActivity.class));
                                 return true;
                             case R.id.add_workout:
