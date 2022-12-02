@@ -30,5 +30,7 @@ public class RoutineStartActivity extends AppCompatActivity{
 
 //        Cursor cursor = db.rawQuery("SELECT Exercise_Name FROM 운동목록 WHERE Exercise_Type = '" + workoutname + "'", null);
 //        while()
+//          for()
+
     }
 }

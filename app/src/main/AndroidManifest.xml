@@ -113,7 +113,6 @@
 
         <receiver android:name=".AlarmReceiver" />
 
-        <activity android:name=".TTS_activity" />
         <activity android:name=".RoutineStartActivity" />
     </application>
 
