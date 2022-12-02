@@ -18,10 +18,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Routine_Sets_and_Reps_Settings extends AppCompatActivity {
+public class Routine_Sets_and_Reps_Settings extends AppCompatActivity{
     ListViewAdapter item = new ListViewAdapter();
-    RoutineFragment routineFragment = new RoutineFragment();
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
 
     Dialog dialog;
     String routine_name, workout_name;
@@ -31,7 +30,6 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_sets_and_reps_settings);
-        transaction.commit();
         settings_list = findViewById(R.id.workout_listview);
         displayList();
         settings_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,8 +72,8 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity {
     void displayList() {
         Routine_DBHelper helper = new Routine_DBHelper(this, 1);
         SQLiteDatabase db = helper.getReadableDatabase();
-
-        routine_name = "press";
+        Intent intent = getIntent();
+        routine_name = intent.getStringExtra("ROUTINE_NAME");
 
         Cursor cursor = db.rawQuery("SELECT Exercise_Name FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
 

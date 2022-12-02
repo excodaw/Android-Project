@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.zip.Inflater;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SendEvent {
 
     WorkOutFragment WorkOutFragment;
     RoutineFragment RoutineFragment;
@@ -148,6 +148,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         alert.show();
+    }
+
+    @Override
+    public void sendRoutineName(String name, boolean check) {
+        if (check == true) {
+            Intent intent = new Intent(MainActivity.this, Routine_Sets_and_Reps_Settings.class);
+            intent.putExtra("ROUTINE_NAME", name);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(MainActivity.this, RoutineStartActivity.class);
+            intent.putExtra("ROUTINE_NAME", name);
+            startActivity(intent);
+        }
     }
 
 }

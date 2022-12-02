@@ -1,5 +1,5 @@
 package com.example.githubproject;
 
 public interface SendEvent {
-    public void sendRoutineName(String name);
+    public void sendRoutineName(String name, boolean check);
 }
