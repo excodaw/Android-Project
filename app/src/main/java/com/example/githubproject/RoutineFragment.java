@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,19 @@ import android.widget.Toast;
 
 public class RoutineFragment extends Fragment {
     ListViewAdapter item = new ListViewAdapter();
+    SendEvent sendEvent;
+    String routine_name;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            sendEvent = (SendEvent) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException((context.toString() + "must implement SendEvent !"));
+        }
+    }
 
     public static RoutineFragment newInstance(String param1, String param2) {
         RoutineFragment fragment = new RoutineFragment();
@@ -57,10 +71,11 @@ public class RoutineFragment extends Fragment {
                 alert.setPositiveButton("실행", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        routine_name = item.getName(position);
                         boolean check = false;
                         Routine_DBHelper helper = new Routine_DBHelper(getContext(), 1);
                         SQLiteDatabase db = helper.getReadableDatabase();
-                        Cursor cursor = db.rawQuery("SELECT Reps, Sets FROM Routine WHERE Routine_Name = '" + item.getName(position) + "'", null);
+                        Cursor cursor = db.rawQuery("SELECT Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
                         while (cursor.moveToNext()) {
                             if (cursor.getInt(0) == 0 || cursor.getInt(1) == 0) {
                                 check = true;
@@ -69,11 +84,10 @@ public class RoutineFragment extends Fragment {
                         db.close();
                         if (check) {
                             Toast.makeText(getContext(), "세트 수와 횟수가 설정되어있지 않습니다!", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), Routine_Sets_and_Reps_Settings.class);
-                            startActivity(intent);
-                        } else {
-                            Intent intent = new Intent(getContext(), RoutineStartActivity.class);
-                            startActivity(intent);
+                            sendEvent.sendRoutineName(routine_name, true);
+                        }
+                        else {
+                            sendEvent.sendRoutineName(routine_name, false);
                         }
                     }
                 });
@@ -86,11 +100,12 @@ public class RoutineFragment extends Fragment {
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setMessage("루틴 " + item.getName(position) + "수정하시겠습니까?");
 
+                routine_name = item.getName(position);
+
                 alert.setPositiveButton("수정", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(getContext(), Routine_Sets_and_Reps_Settings.class);
-                        startActivity(intent);
+                        sendEvent.sendRoutineName(routine_name, true);
                     }
                 });
                 alert.show();
@@ -113,4 +128,5 @@ public class RoutineFragment extends Fragment {
         db.close();
     }
 }
+
 
