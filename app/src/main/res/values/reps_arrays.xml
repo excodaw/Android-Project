@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer-array name="reps_num">
+    <string-array name="reps_num">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -16,5 +16,5 @@
         <item>13</item>
         <item>14</item>
         <item>15</item>
-    </integer-array>
+    </string-array>
 </resources>

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -69,11 +70,9 @@ public class RoutineFragment extends Fragment {
                         if (check) {
                             Toast.makeText(getContext(), "세트 수와 횟수가 설정되어있지 않습니다!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), Routine_Sets_and_Reps_Settings.class);
-                            intent.putExtra("RN", item.getName(position));
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(getContext(), RoutineStartActivity.class);
-                            intent.putExtra("RN", item.getName(position));
                             startActivity(intent);
                         }
                     }
@@ -91,7 +90,6 @@ public class RoutineFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(getContext(), Routine_Sets_and_Reps_Settings.class);
-                        intent.putExtra("RN", item.getName(position));
                         startActivity(intent);
                     }
                 });
