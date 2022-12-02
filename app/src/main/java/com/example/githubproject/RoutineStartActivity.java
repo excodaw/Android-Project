@@ -39,7 +39,7 @@ public class RoutineStartActivity extends AppCompatActivity{
 
         Cursor cursor = db.rawQuery("SELECT Exercise_Name, Time, TTS, Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
         while(cursor.moveToNext()) {
-            for(int i = 1; i <= cursor.getInt(4); i++) {
+            for(int i = 0; i < cursor.getInt(4); i++) {
 //                if (cursor.getInt(2) == 1) {
 //                    cursor.getString(0);
 //
@@ -47,11 +47,10 @@ public class RoutineStartActivity extends AppCompatActivity{
 //                if (cursor.getInt(2) >= 15) {
 //
 //                }
-
+                Log.v("Cursor", cursor.getString(0));
                 bundle.putString("WORKOUT_NAME", cursor.getString(0));
                 routineRunFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, restTimers).commit();
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineRunFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineRunFragment).commit();
             }
         }
     }

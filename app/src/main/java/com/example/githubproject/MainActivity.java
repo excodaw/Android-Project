@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.AlphabeticIndex;
 import android.os.Bundle;
 import android.view.MenuInflater;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
     RoutineFragment RoutineFragment;
     RecordFragment RecordFragment;
     BottomNavigationView bottomNavigationView;
-
+    ResttimeDBHelper resttimeDBHelper;
     DBHelper dbHelper;
 
     public boolean onCreateOptionsMenu(Menu menu)    {
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
         FloatingActionButton fab = findViewById(R.id.fab);
 
         dbHelper = new DBHelper(MainActivity.this,1);
+        resttimeDBHelper = new ResttimeDBHelper(MainActivity.this, 1);
+
+        SQLiteDatabase db = resttimeDBHelper.getReadableDatabase();
+        db.close();
+
         dbHelper.dbCopy(MainActivity.this);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
