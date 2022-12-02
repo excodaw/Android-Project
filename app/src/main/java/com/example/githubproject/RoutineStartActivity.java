@@ -20,6 +20,7 @@ import java.util.TimerTask;
 public class RoutineStartActivity extends AppCompatActivity{
     Bundle bundle = new Bundle();
     RoutineRunFragment routineRunFragment;
+    RestTimers restTimers;
     String routine_name;
     int set_count = 0;
     int rep_count = 0;
@@ -28,6 +29,7 @@ public class RoutineStartActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_start);
         routineRunFragment = new RoutineRunFragment();
+        restTimers = new RestTimers();
 
         Intent intent = getIntent();
         routine_name = intent.getStringExtra("ROUTINE_NAME");
