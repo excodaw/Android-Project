@@ -4,16 +4,6 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_view_countdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="10:00"
-        android:textColor="@android:color/black"
-        android:textSize="60sp" />
-
-    <TextView
         android:id="@+id/Text_rest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,8 +11,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="209dp"
         android:text="휴식"
-        android:textColor="@android:color/black"
+        android:textColor="@color/white"
         android:textSize="45sp" />
+
+    <TextView
+        android:id="@+id/text_view_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="10:00"
+        android:layout_below="@+id/Text_rest"
+        android:textColor="@color/white"
+        android:textSize="60sp" />
 
     <Button
         android:id="@+id/button_start_pause"

@@ -75,10 +75,13 @@ public class RoutineFragment extends Fragment {
                         boolean check = false;
                         Routine_DBHelper helper = new Routine_DBHelper(getContext(), 1);
                         SQLiteDatabase db = helper.getReadableDatabase();
-                        Cursor cursor = db.rawQuery("SELECT Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
+                        Cursor cursor = db.rawQuery("SELECT TTS, Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
                         while (cursor.moveToNext()) {
-                            if (cursor.getInt(0) == 0 || cursor.getInt(1) == 0) {
+                            if(cursor.getInt(1) == 0 || cursor.getInt(2) == 0) {
                                 check = true;
+                            }
+                            if(cursor.getInt(0) >= 15) {
+                                check = false;
                             }
                         }
                         db.close();

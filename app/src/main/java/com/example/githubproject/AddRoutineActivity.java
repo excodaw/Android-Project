@@ -80,7 +80,6 @@ public class AddRoutineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_routine);
 
-
         workoutlistview = (ListView) findViewById(R.id.WorkOutList_in_routine);
 
         displayList();

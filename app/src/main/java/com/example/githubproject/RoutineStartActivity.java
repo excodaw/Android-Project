@@ -37,14 +37,21 @@ public class RoutineStartActivity extends AppCompatActivity{
         Routine_DBHelper routine_dbHelper = new Routine_DBHelper(RoutineStartActivity.this, 1);
         SQLiteDatabase db = routine_dbHelper.getReadableDatabase();
 
-
-
         Cursor cursor = db.rawQuery("SELECT Exercise_Name, Time, TTS, Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
         while(cursor.moveToNext()) {
             for(int i = 1; i <= cursor.getInt(4); i++) {
+//                if (cursor.getInt(2) == 1) {
+//                    cursor.getString(0);
+//
+//                }
+//                if (cursor.getInt(2) >= 15) {
+//
+//                }
+
                 bundle.putString("WORKOUT_NAME", cursor.getString(0));
                 routineRunFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineRunFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, restTimers).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineRunFragment).commit();
             }
         }
     }
