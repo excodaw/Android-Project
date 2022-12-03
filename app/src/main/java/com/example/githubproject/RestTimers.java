@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import java.util.Locale;
 
 public class RestTimers extends Fragment {
+
+    public static RestTimers newInstance() {
+        return new RestTimers();
+    }
     private static final long START_TIME_IN_MILLIS = 10000;
 
     private TextView mTextViewCountDown;
@@ -42,8 +45,6 @@ public class RestTimers extends Fragment {
                 //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 //fragmentManager.beginTransaction().remove(RestTimers.this).commit();
                 //fragmentManager.popBackStack(); 스택을 이용한 이전 프래그먼트로 바꾸기
-
-
             }
         }.start();
 
@@ -94,7 +95,7 @@ public class RestTimers extends Fragment {
             @Override
             public void onClick(View v) {
                 pauseTimer();
-                mTimerLeftInMillis = mTimerLeftInMillis + 20000;
+                mTimerLeftInMillis = mTimerLeftInMillis + 10000;
                 startTimer();
             }
         });
