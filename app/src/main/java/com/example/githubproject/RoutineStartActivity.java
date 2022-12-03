@@ -43,9 +43,19 @@ public class RoutineStartActivity extends AppCompatActivity{
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineLoopFragment).commit();
     }
 
+//    public void replacementFragment(Fragment fragment) {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
+//    }
+
+
     public void replacementFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment).commit();
     }
+
+
+
 }
