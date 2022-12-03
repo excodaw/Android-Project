@@ -47,6 +47,7 @@ public class record_listview_BodyFat extends AppCompatActivity {
         lineChart = (LineChart)findViewById(R.id.chart2);
 
         List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(0, 0));
         ArrayList<Result> resultList = mydbHelper.getFilteredResultList("체지방");
         for(int i=0; i<resultList.size(); i++) {
             entries.add(new Entry(i, resultList.get(i).getNumber()));

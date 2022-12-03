@@ -42,9 +42,9 @@ public class RestTimers extends Fragment {
                 mButtonStartPause.setText("start");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
                 mButtonReset.setVisibility(View.VISIBLE);
-                //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                //fragmentManager.beginTransaction().remove(RestTimers.this).commit();
-                //fragmentManager.popBackStack(); 스택을 이용한 이전 프래그먼트로 바꾸기
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().remove(RestTimers.this).commit();
+                fragmentManager.popBackStack();
             }
         }.start();
 

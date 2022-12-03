@@ -10,7 +10,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="10:00"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="60sp" />
 
     <TextView
@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="209dp"
         android:text="휴식"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="45sp" />
 
     <Button

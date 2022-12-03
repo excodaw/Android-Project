@@ -40,6 +40,8 @@ public class RoutineRunFragment extends Fragment {
                 , R.drawable.barbell_curl, R.drawable.dumbbell_curl, R.drawable.lying_triceps
                 , R.drawable.cable_push_down, R.drawable.hanging_leg_raises, R.drawable.bicycle_crunch};
 
+
+
 //        Bundle bundle = getArguments();
 //        if (bundle != null) {
 //            workout_name = bundle.getString("WORKOUT_NAME");
@@ -55,7 +57,11 @@ public class RoutineRunFragment extends Fragment {
         end_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container_view_tag, new RestTimers())
+//                        .addToBackStack(null)
+                        .commit();
             }
         });
 
