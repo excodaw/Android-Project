@@ -21,12 +21,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class RoutineStartActivity extends AppCompatActivity{
+    Bundle bundle = new Bundle();
+    RoutineRunFragment routineRunFragment;
+    RestTimers restTimers;
+    RestTimers_two restTimers_two;
     String routine_name;
     RoutineLoopFragment routineLoopFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_start);
+        routineRunFragment = new RoutineRunFragment();
+        restTimers = new RestTimers();
+        restTimers_two = new RestTimers_two();
+
         Intent intent = getIntent();
         routine_name = intent.getStringExtra("ROUTINE_NAME");
 
