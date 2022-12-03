@@ -13,13 +13,10 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.Locale;
 
-public class RestTimers extends Fragment {
+public class RestTimers_two extends Fragment {
     private static final long START_TIME_IN_MILLIS = 10000;
 
     private TextView mTextViewCountDown;
-    private Button mButtonStartPause;
-    private Button mButtonReset;
-    private Button mButtonAdd;
 
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
@@ -36,9 +33,6 @@ public class RestTimers extends Fragment {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                mButtonStartPause.setText("start");
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-                mButtonReset.setVisibility(View.VISIBLE);
                 //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 //fragmentManager.beginTransaction().remove(RestTimers.this).commit();
                 //fragmentManager.popBackStack(); 스택을 이용한 이전 프래그먼트로 바꾸기
@@ -48,21 +42,15 @@ public class RestTimers extends Fragment {
         }.start();
 
         mTimerRunning = true;
-        mButtonStartPause.setText("pause");
-        mButtonReset.setVisibility(View.INVISIBLE);
     }
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        mButtonStartPause.setText("start");
-        mButtonReset.setVisibility(View.VISIBLE);
     }
 
     private void resetTimer() {
         mTimerLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
-        mButtonReset.setVisibility(View.INVISIBLE);
-        mButtonStartPause.setVisibility(View.VISIBLE);
     }
 
 
@@ -80,42 +68,13 @@ public class RestTimers extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.rest_timer, container, false);
+        View view = inflater.inflate(R.layout.rest_timer_two, container, false);
 
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
 
-        mButtonStartPause = view.findViewById(R.id.button_start_pause);
-        mButtonReset = view.findViewById(R.id.button_reset);
-        mButtonAdd = view.findViewById(R.id.button_add);
 
         startTimer();
 
-        mButtonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pauseTimer();
-                mTimerLeftInMillis = mTimerLeftInMillis + 20000;
-                startTimer();
-            }
-        });
-
-        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTimerRunning) {
-                    pauseTimer();
-                }else {
-                    startTimer();
-                }
-            }
-        });
-
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
-            }
-        });
 
         updateCountDownText();
         return view;
