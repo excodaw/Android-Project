@@ -39,23 +39,13 @@ public class RoutineStartActivity extends AppCompatActivity{
         routine_name = intent.getStringExtra("ROUTINE_NAME");
 
         routineLoopFragment = new RoutineLoopFragment();
-
+        bundle.putString("ROUTINE_NAME", routine_name);
+        routineLoopFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineLoopFragment).commit();
     }
-
-//    public void replacementFragment(Fragment fragment) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
-//    }
-
-
     public void replacementFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_view_tag, fragment).commit();
     }
-
-
-
 }

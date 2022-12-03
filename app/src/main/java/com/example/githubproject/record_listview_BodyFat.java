@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -45,7 +46,6 @@ public class record_listview_BodyFat extends AppCompatActivity {
 
         mydbHelper = new MyDBHelper(this, 1);
         lineChart = (LineChart)findViewById(R.id.chart2);
-
         List<Entry> entries = new ArrayList<>();
         entries.add(new Entry(0, 0));
         ArrayList<Result> resultList = mydbHelper.getFilteredResultList("체지방");
@@ -96,7 +96,5 @@ public class record_listview_BodyFat extends AppCompatActivity {
         lineChart.setDrawGridBackground(false);
         lineChart.setDescription(description);
         lineChart.invalidate();
-
-
     }
 }
