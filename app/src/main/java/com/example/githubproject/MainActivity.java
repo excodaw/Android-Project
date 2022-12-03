@@ -131,8 +131,6 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
                 return false;
             }
         });
-
-
     }
 
     public void onBackPressed() {
@@ -168,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
             intent.putExtra("ROUTINE_NAME", name);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void sendListName(String name) {
+        Toast.makeText(getApplicationContext(), "" + name, Toast.LENGTH_LONG).show();
     }
 
 }

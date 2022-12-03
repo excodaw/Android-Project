@@ -3,86 +3,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WorkOutFragment">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <HorizontalScrollView
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_chest"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_chest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="5dp"
-                    android:text="가슴" />
-
-                <Button
-                    android:id="@+id/btn_shoulder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:text="어깨" />
-
-                <Button
-                    android:id="@+id/btn_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:text="등" />
-
-                <Button
-                    android:id="@+id/btn_lower_body"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:text="하체" />
-
-                <Button
-                    android:id="@+id/btn_arm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:text="팔"/>
-
-                <Button
-                    android:id="@+id/btn_abs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:text="복근" />
-
-                <Button
-                    android:id="@+id/btn_recover"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:text="재활" />
-            </LinearLayout>
-        </HorizontalScrollView>
+                android:layout_height="wrap_content"
+                android:text="가슴"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="등"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_shoulder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="어깨"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_lower_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="하체"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_abs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="복근"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_arm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="팔"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_recover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="재활"/>
+        </com.google.android.material.tabs.TabLayout>
 
         <ListView
             android:id="@+id/WorkOutList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
 
 </FrameLayout>
