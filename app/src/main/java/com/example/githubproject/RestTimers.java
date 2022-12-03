@@ -13,7 +13,12 @@ import androidx.fragment.app.Fragment;
 import java.util.Locale;
 
 public class RestTimers extends Fragment {
-    private static final long START_TIME_IN_MILLIS = 600000;
+
+    public static RestTimers newInstance() {
+        return new RestTimers();
+    }
+
+    private static final long START_TIME_IN_MILLIS = 30000;
 
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
@@ -38,7 +43,6 @@ public class RestTimers extends Fragment {
                 mButtonStartPause.setText("start");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
                 mButtonReset.setVisibility(View.VISIBLE);
-
             }
         }.start();
 
@@ -89,7 +93,7 @@ public class RestTimers extends Fragment {
             @Override
             public void onClick(View v) {
                 pauseTimer();
-                mTimerLeftInMillis = mTimerLeftInMillis + 20000;
+                mTimerLeftInMillis = mTimerLeftInMillis + 10000;
                 startTimer();
             }
         });

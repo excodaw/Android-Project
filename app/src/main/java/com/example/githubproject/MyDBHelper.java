@@ -105,6 +105,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 );
         }
         Log.e("testtest", resultList.size() +"");
+        db.close();
         return resultList;
     }
 }
