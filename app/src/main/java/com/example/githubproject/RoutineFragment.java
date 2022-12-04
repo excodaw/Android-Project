@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,9 @@ public class RoutineFragment extends Fragment {
     ListViewAdapter item = new ListViewAdapter();
     SendEvent sendEvent;
     String routine_name;
+    RoutineRunFragment routinerunfragment;
+    RoutineFragment routinefragment;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -60,6 +64,8 @@ public class RoutineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_routine, container, false);
+        routinerunfragment = new RoutineRunFragment();
+        routinefragment = new RoutineFragment();
         routine_name_list = view.findViewById(R.id.routine_name_list);
         displayList();
 
@@ -72,6 +78,9 @@ public class RoutineFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         routine_name = item.getName(position);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name",item.getName(position));
+                        routinerunfragment.setArguments(bundle);
                         boolean check = false;
                         Routine_DBHelper helper = new Routine_DBHelper(getContext(), 1);
                         SQLiteDatabase db = helper.getReadableDatabase();
@@ -90,9 +99,14 @@ public class RoutineFragment extends Fragment {
                             sendEvent.sendRoutineName(routine_name, true);
                         }
                         else {
-                            sendEvent.sendRoutineName(routine_name, false);
-                        }
-                    }
+                            Routine_DBHelper helper2 = new Routine_DBHelper(getContext(), 1);
+                            SQLiteDatabase db2 = helper2.getReadableDatabase();
+                            Cursor cursor2 = db2.rawQuery("SELECT Exercise_Name, Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.container, routinerunfragment).addToBackStack(null).commit();
+                                }
+                            }
                 });
                 alert.show();
             }
