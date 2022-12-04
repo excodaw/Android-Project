@@ -18,17 +18,18 @@
             android:orientation="vertical">
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="vertical">
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/record_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="오늘의 수치를 입력해주세요." />
+                android:hint="운동일지에 기록됩니다"
+                />
         </LinearLayout>
 
         <Spinner
@@ -45,7 +46,9 @@
                 android:id="@+id/record_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="저장하기" />
+                android:background="#00ff0000"
+                android:textColor="@color/white"
+                android:text="저장" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,24 +60,21 @@
                 android:id="@+id/record_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="조회하기" />
+                android:background="#00ff0000"
+                android:textColor="@color/white"
+                android:text="조회" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
             <TextView
                 android:id="@+id/record_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="조회하기를 누르면 그동안의 기록이 보입니다." />
+                android:text="" />
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 

@@ -23,7 +23,7 @@ public class AddResultActivity extends AppCompatActivity {
 
     MyDBHelper mydbHelper;
     Button record_save,record_select;
-    EditText record_id, record_type;
+    EditText record_id;
     TextView record_view;
     Spinner type_spins;
 
@@ -46,10 +46,14 @@ public class AddResultActivity extends AppCompatActivity {
 
         record_save.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String currentDate = simpleDateFormat.format(new Date());
+                if(record_id.length() == 0) {
 
-                mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+                }
+                else {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+                    String currentDate = simpleDateFormat.format(new Date());
+                    mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+                }
             }
         });
 

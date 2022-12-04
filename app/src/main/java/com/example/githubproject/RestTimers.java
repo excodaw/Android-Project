@@ -14,9 +14,6 @@ import java.util.Locale;
 
 public class RestTimers extends Fragment {
 
-    public static RestTimers newInstance() {
-        return new RestTimers();
-    }
     private static final long START_TIME_IN_MILLIS = 10000;
 
     private TextView mTextViewCountDown;

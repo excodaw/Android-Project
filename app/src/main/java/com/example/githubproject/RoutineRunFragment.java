@@ -60,7 +60,6 @@ public class RoutineRunFragment extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container_view_tag, new RestTimers())
-//                        .addToBackStack(null)
                         .commit();
             }
         });

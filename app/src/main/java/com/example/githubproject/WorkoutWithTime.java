@@ -5,15 +5,13 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import java.util.Locale;
 
-public class RestTimers_two extends Fragment {
+public class WorkoutWithTime extends Fragment {
     private static final long START_TIME_IN_MILLIS = 10000;
 
     private TextView mTextViewCountDown;
@@ -33,9 +31,6 @@ public class RestTimers_two extends Fragment {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                //fragmentManager.beginTransaction().remove(RestTimers.this).commit();
-                //fragmentManager.popBackStack(); 스택을 이용한 이전 프래그먼트로 바꾸기
             }
         }.start();
 

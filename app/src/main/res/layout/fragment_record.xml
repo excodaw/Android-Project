@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WorkOutFragment">
-
-    <androidx.viewpager2.widget.ViewPager2
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/record_viewpager"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/graph_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="몸무게"/>
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_1rm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3대 중량"/>
+        </com.google.android.material.tabs.TabLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/graph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kg"
+                android:layout_alignBottom="@id/graph_chart"
+                />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/graph_chart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

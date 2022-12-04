@@ -2,8 +2,7 @@
 <resources>
     <string-array name="result_names">
         <item>몸무게</item>
-        <item>체지방</item>
-        <item>골격근</item>
+        <item>3대 중량</item>
     </string-array>
 
 </resources>
