@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ViewFlipper
+        android:id="@+id/routine_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/R_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/exc_img"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/num_per_set"
+                />
+
+            <TextView
+                android:id="@+id/ima_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="운동이름"
+                android:textSize="30dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/num_per_set"
+                />
+
+            <TextView
+                android:id="@+id/num_per_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0회"
+                android:textAlignment="center"
+                android:textSize="50dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                />
+
+            <Button
+                android:id="@+id/end_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ff0000"
+                android:textColor="@color/white"
+                android:text="완료"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/ima_tv"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_view_countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="10:00"
+                android:textColor="@android:color/white"
+                android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/Text_rest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="209dp"
+                android:text="휴식"
+                android:textColor="@android:color/white"
+                android:textSize="45sp" />
+
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_countdown"
+                android:layout_marginEnd="11dp"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="#00ff0000"
+                android:textColor="@color/white"
+                android:text="10초 추가" />
+
+        </RelativeLayout>
+
+    </ViewFlipper>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

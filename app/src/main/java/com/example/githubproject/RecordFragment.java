@@ -1,9 +1,12 @@
 package com.example.githubproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +14,28 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.material.tabs.TabLayout;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecordFragment extends Fragment{
-    SendEvent sendEvent;
+    LineChart lineChart;
+    TabLayout graph_tabs;
+    TextView graph;
 
     public static RecordFragment newInstance(String param1, String param2) {
         RecordFragment fragment = new RecordFragment();
@@ -38,7 +56,93 @@ public class RecordFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_record, container, false);
-        startActivity(new Intent(getContext(), record_listview_BodyFat.class));
+        graph_tabs = view.findViewById(R.id.graph_tab);
+        lineChart = view.findViewById(R.id.graph_chart);
+        graph = view.findViewById(R.id.graph);
+        graphShow("몸무게");
+        graph_tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                if(position == 0) {
+                    graphShow("몸무게");
+                }
+                else if(position == 1) {
+                    graphShow("3대 중량");
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
         return view;
+    }
+
+    public void graphShow(String chart_name) {
+        int count = 0;
+        MyDBHelper mydbHelper = new MyDBHelper(getContext(), 1);
+        count = mydbHelper.getCount(chart_name);
+        if (count < 2) {
+            lineChart.setVisibility(View.INVISIBLE);
+            graph.setVisibility(View.INVISIBLE);
+        }
+        else if (count >= 2){
+            graph.setVisibility(View.VISIBLE);
+            lineChart.setVisibility(View.VISIBLE);
+            List<Entry> entries = new ArrayList<>();
+            ArrayList<Result> resultList = mydbHelper.getFilteredResultList(chart_name);
+            for(int i=0; i<resultList.size(); i++) {
+                entries.add(new Entry(i, resultList.get(i).getNumber()));
+            }
+
+            LineDataSet lineDataSet = new LineDataSet(entries, chart_name);
+            lineDataSet.setLineWidth(2);
+            lineDataSet.setCircleRadius(6);
+            lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
+            lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+            lineDataSet.setDrawCircleHole(true);
+            lineDataSet.setDrawCircles(true);
+            lineDataSet.setDrawHorizontalHighlightIndicator(false);
+            lineDataSet.setDrawHighlightIndicators(false);
+            lineDataSet.setDrawValues(false);
+            lineChart.getLegend().setTextColor(Color.parseColor("#FFFFFF"));
+
+
+            LineData lineData = new LineData(lineDataSet);
+            lineChart.setData(lineData);
+
+            XAxis xAxis = lineChart.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setTextColor(Color.WHITE);
+            xAxis.enableGridDashedLine(8, 24, 0);
+            xAxis.setLabelCount(resultList.size() - 1);
+            xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value) {
+                    return resultList.get((int)value).getRecordDate();
+                }
+            });
+
+            YAxis yLAxis = lineChart.getAxisLeft();
+            yLAxis.setTextColor(Color.WHITE);
+
+            YAxis yRAxis = lineChart.getAxisRight();
+            yRAxis.setDrawLabels(false);
+            yRAxis.setDrawAxisLine(false);
+            yRAxis.setDrawGridLines(false);
+
+            Description description = new Description();
+            description.setText("");
+
+            lineChart.setDoubleTapToZoomEnabled(false);
+            lineChart.setDrawGridBackground(false);
+            lineChart.setDescription(description);
+            lineChart.invalidate();
+        }
+
     }
 }

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
     BottomNavigationView bottomNavigationView;
     ResttimeDBHelper resttimeDBHelper;
     DBHelper dbHelper;
+    RoutineDialog routineDialog;
 
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -162,15 +163,7 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
             startActivity(intent);
         }
         else {
-            Intent intent = new Intent(MainActivity.this, RoutineStartActivity.class);
-            intent.putExtra("ROUTINE_NAME", name);
-            startActivity(intent);
         }
-    }
-
-    @Override
-    public void sendListName(String name) {
-        Toast.makeText(getApplicationContext(), "" + name, Toast.LENGTH_LONG).show();
     }
 
 }

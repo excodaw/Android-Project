@@ -1,6 +1,7 @@
 package com.example.githubproject;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,5 +32,15 @@ public class ResttimeDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public int getTime() {
+        int time = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT Time FROM Rest_Time", null);
+        while(cursor.moveToNext()) {
+            time = cursor.getInt(0);
+        }
+        db.close();
 
+        return time;
+    }
 }
