@@ -30,6 +30,7 @@ public class RoutineFragment extends Fragment {
     String routine_name;
     RoutineRunFragment routinerunfragment;
     RoutineFragment routinefragment;
+    RoutineDialog routineDialog;
 
 
     @Override
@@ -67,6 +68,7 @@ public class RoutineFragment extends Fragment {
         routinerunfragment = new RoutineRunFragment();
         routinefragment = new RoutineFragment();
         routine_name_list = view.findViewById(R.id.routine_name_list);
+        routineDialog = new RoutineDialog(getContext());
         displayList();
 
         routine_name_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,12 +101,7 @@ public class RoutineFragment extends Fragment {
                             sendEvent.sendRoutineName(routine_name, true);
                         }
                         else {
-                            Routine_DBHelper helper2 = new Routine_DBHelper(getContext(), 1);
-                            SQLiteDatabase db2 = helper2.getReadableDatabase();
-                            Cursor cursor2 = db2.rawQuery("SELECT Exercise_Name, Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
-                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.container, routinerunfragment).addToBackStack(null).commit();
+                            routineDialog.show();
                                 }
                             }
                 });
