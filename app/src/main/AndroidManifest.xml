@@ -92,7 +92,6 @@
 
         <receiver android:name=".AlarmReceiver" />
 
-        <activity android:name=".RoutineStartActivity" />
     </application>
 
 </manifest>

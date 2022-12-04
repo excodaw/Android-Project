@@ -91,7 +91,7 @@ public class RecordFragment extends Fragment{
             graph.setVisibility(View.INVISIBLE);
         }
         else if (count >= 2){
-            graph.setVisibility(View.INVISIBLE);
+            graph.setVisibility(View.VISIBLE);
             lineChart.setVisibility(View.VISIBLE);
             List<Entry> entries = new ArrayList<>();
             ArrayList<Result> resultList = mydbHelper.getFilteredResultList(chart_name);

@@ -82,8 +82,6 @@ public class RestTimers extends Fragment {
 
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
 
-        mButtonStartPause = view.findViewById(R.id.button_start_pause);
-        mButtonReset = view.findViewById(R.id.button_reset);
         mButtonAdd = view.findViewById(R.id.button_add);
 
         startTimer();
@@ -97,23 +95,6 @@ public class RestTimers extends Fragment {
             }
         });
 
-        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTimerRunning) {
-                    pauseTimer();
-                }else {
-                    startTimer();
-                }
-            }
-        });
-
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
-            }
-        });
 
         updateCountDownText();
         return view;

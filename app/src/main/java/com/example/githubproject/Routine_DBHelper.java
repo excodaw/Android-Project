@@ -40,9 +40,10 @@ public class Routine_DBHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    public int getCount(String routine_name) {
+    public int count(String routine_name) {
         SQLiteDatabase db = getReadableDatabase();
         int count = 0;
+
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Routine WHERE Routine_Name =  '" + routine_name + "'", null);
         while(cursor.moveToNext()) {
             count = cursor.getInt(0);
