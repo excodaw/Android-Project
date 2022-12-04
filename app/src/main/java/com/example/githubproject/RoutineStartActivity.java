@@ -41,7 +41,7 @@ public class RoutineStartActivity extends AppCompatActivity{
         routineLoopFragment = new RoutineLoopFragment();
         bundle.putString("ROUTINE_NAME", routine_name);
         routineLoopFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineLoopFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, routineRunFragment).commit();
     }
     public void replacementFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
