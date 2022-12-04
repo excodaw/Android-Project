@@ -95,7 +95,6 @@ public class RestTimers extends Fragment {
             }
         });
 
-
         updateCountDownText();
         return view;
     }

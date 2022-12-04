@@ -92,7 +92,8 @@
                 android:layout_centerHorizontal="true"
                 android:backgroundTint="#00ff0000"
                 android:textColor="@color/white"
-                android:text="10초 추가" />
+                android:text="시간 추가" />
+
 
         </RelativeLayout>
 
