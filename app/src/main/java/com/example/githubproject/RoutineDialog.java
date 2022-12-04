@@ -1,5 +1,6 @@
 package com.example.githubproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -35,13 +36,66 @@ public class RoutineDialog extends AlertDialog {
     int set_check = 0;
     int workout_check = 0;
 
+    private static final long START_TIME_IN_MILLIS = 10000;
+    private TextView mTextViewCountDown;
+    private Button mButtonStartPause;
+    private Button mButtonReset;
+    private Button mButtonAdd;
+    private CountDownTimer mCountDownTimer;
+    private boolean mTimerRunning;
+    private long mTimerLeftInMillis = START_TIME_IN_MILLIS;
+
+
     protected RoutineDialog(Context context) {
         super(context, androidx.appcompat.R.style.AlertDialog_AppCompat);
+    }
+
+    private void startTimer() {
+        mCountDownTimer = new CountDownTimer(mTimerLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimerLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                mTimerRunning = false;
+                mTimerLeftInMillis = 10000;
+                routine_flipper.showPrevious();
+            }
+        }.start();
+
+        mTimerRunning = true;
+    }
+    private void pauseTimer() {
+        mCountDownTimer.cancel();
+        mTimerRunning = false;
+        mButtonStartPause.setText("start");
+        mButtonReset.setVisibility(View.VISIBLE);
+    }
+
+    private void resetTimer() {
+        mTimerLeftInMillis = START_TIME_IN_MILLIS;
+        updateCountDownText();
+        mButtonReset.setVisibility(View.INVISIBLE);
+        mButtonStartPause.setVisibility(View.VISIBLE);
+    }
+
+
+    private void updateCountDownText() {
+        int minutes = (int) (mTimerLeftInMillis / 1000) / 60;
+        int seconds = (int) (mTimerLeftInMillis / 1000) % 60;
+
+        String timerLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
+
+        text_view_countdown.setText(timerLeftFormatted);
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.routine_dialog);
+
 
         routine_flipper = findViewById(R.id.routine_flipper);
         exc_img = findViewById(R.id.exc_img);
@@ -89,6 +143,7 @@ public class RoutineDialog extends AlertDialog {
                 }
                 else {
                     routine_flipper.showNext();
+                    startTimer();
                 }
             }
         });
@@ -96,12 +151,16 @@ public class RoutineDialog extends AlertDialog {
         button_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                set_img(workout_names[workout_check]);
-                ima_tv.setText(workout_names[workout_check]);
-                routine_flipper.showPrevious();
+                mCountDownTimer.cancel();
+                mTimerLeftInMillis = mTimerLeftInMillis + 10000;
+                startTimer();
             }
         });
+
+
+
     }
+
 
     public void set_img(String workout_name) {
         String[] exercise = new String[]{"벤치프레스", "인클라인 벤치프레스", "덤벨 프레스", "숄더 프레스"
