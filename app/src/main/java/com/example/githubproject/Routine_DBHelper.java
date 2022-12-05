@@ -64,15 +64,15 @@ public class Routine_DBHelper extends SQLiteOpenHelper{
         db.close();
     }
 
-    public void update_set(int set, String workout) {
+    public void update_set(int set, String routine_name, String workout) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE Routine SET Sets = " + set + " WHERE Exercise_Name = '" + workout +"'");
+        db.execSQL("UPDATE Routine SET Sets = " + set + " WHERE Routine_Name = '" + routine_name + "'AND" + " Exercise_Name = '" + workout + "'");
         db.close();
     }
 
-    public void update_rep(int rep, String workout) {
+    public void update_rep(int rep, String routine_name, String workout) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE Routine SET Reps = " + rep + " WHERE Exercise_Name = '" + workout +"'");
+        db.execSQL("UPDATE Routine SET Reps = " + rep + " WHERE Routine_Name = '" + routine_name + "'AND" + " Exercise_Name = '" + workout + "'");
         db.close();
     }
 }

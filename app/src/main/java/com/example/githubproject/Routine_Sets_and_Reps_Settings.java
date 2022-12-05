@@ -40,10 +40,10 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "" + position, Toast.LENGTH_LONG).show();
                 if(timer_check_int[position] == 1) {
-                    withtimer(position);
+                    withTimer(position);
                 }
                 else {
-                    withouttimer(position);
+                    withoutTimer(position);
                 }
             }
         });
@@ -71,7 +71,7 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity{
         i = 0;
         db.close();
     }
-    void withouttimer(int pos) {
+    void withoutTimer(int pos) {
         dialog = new Dialog(Routine_Sets_and_Reps_Settings.this);
         dialog.setContentView(R.layout.custom_dialog);
         workout_name = item.getName(pos);
@@ -95,8 +95,8 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity{
                 set = Integer.parseInt(set_spin.getSelectedItem().toString());
                 rep = Integer.parseInt(rep_spin.getSelectedItem().toString());
 
-                routine_dbHelper.update_rep(rep, workout_name);
-                routine_dbHelper.update_set(set, workout_name);
+                routine_dbHelper.update_rep(rep, routine_name, workout_name);
+                routine_dbHelper.update_set(set, routine_name, workout_name);
                 Toast.makeText(getApplicationContext(), workout_name + "설정 완료", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
@@ -104,7 +104,7 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity{
         dialog.show();
     }
 
-    void withtimer(int pos) {
+    void withTimer(int pos) {
         dialog = new Dialog(Routine_Sets_and_Reps_Settings.this);
         dialog.setContentView(R.layout.custom_dialog_with_timer);
         workout_name = item.getName(pos);
@@ -122,7 +122,7 @@ public class Routine_Sets_and_Reps_Settings extends AppCompatActivity{
                 int set = 0;
                 set = Integer.parseInt(set_spin.getSelectedItem().toString());
 
-                routine_dbHelper.update_set(set, workout_name);
+                routine_dbHelper.update_set(set, routine_name, workout_name);
                 Toast.makeText(getApplicationContext(), workout_name + "설정 완료", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }

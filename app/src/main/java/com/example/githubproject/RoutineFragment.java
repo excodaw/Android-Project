@@ -31,7 +31,7 @@ public class RoutineFragment extends Fragment {
     RoutineRunFragment routinerunfragment;
     RoutineFragment routinefragment;
     RoutineDialog routineDialog;
-
+    Bundle bundle = new Bundle();
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -68,7 +68,6 @@ public class RoutineFragment extends Fragment {
         routinerunfragment = new RoutineRunFragment();
         routinefragment = new RoutineFragment();
         routine_name_list = view.findViewById(R.id.routine_name_list);
-        routineDialog = new RoutineDialog(getContext());
         displayList();
 
         routine_name_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,6 +100,8 @@ public class RoutineFragment extends Fragment {
                             sendEvent.sendRoutineName(routine_name, true);
                         }
                         else {
+                            sendEvent.sendRoutineName(routine_name, false);
+                            routineDialog = new RoutineDialog(getContext(), routine_name);
                             routineDialog.show();
                                 }
                             }

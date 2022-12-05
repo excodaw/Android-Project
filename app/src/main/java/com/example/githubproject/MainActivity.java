@@ -163,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
             startActivity(intent);
         }
         else {
+            Intent intent = new Intent(MainActivity.this, RoutineDialog.class);
+            intent.putExtra("ROUTINE_NAME", name);
         }
     }
 
