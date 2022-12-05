@@ -98,4 +98,27 @@ public class AddRoutineActivity extends AppCompatActivity {
         workoutlistview.setAdapter(item);
         db.close();
     }
+
+    public void onBackPressed() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("종료하시겠습니까?");
+
+        alert.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alert.setNegativeButton("종료", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Routine_DBHelper routine_dbHelper = new Routine_DBHelper(getApplicationContext(), 1);
+                routine_dbHelper.delete("123214124124");
+                finish();
+            }
+        });
+
+        alert.show();
+    }
 }

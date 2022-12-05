@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -30,14 +31,13 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements SendEvent {
-
     WorkOutFragment WorkOutFragment;
     RoutineFragment RoutineFragment;
     RecordFragment RecordFragment;
     BottomNavigationView bottomNavigationView;
     ResttimeDBHelper resttimeDBHelper;
     DBHelper dbHelper;
-    RoutineDialog routineDialog;
+    AddRecordDialog addRecordDialog;
 
     public boolean onCreateOptionsMenu(Menu menu)    {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
         WorkOutFragment = new WorkOutFragment();
         RoutineFragment = new RoutineFragment();
         RecordFragment = new RecordFragment();
+        addRecordDialog = new AddRecordDialog(this);
 
         findViewById(R.id.fab).setVisibility(View.VISIBLE);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -94,7 +95,9 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
                                 startActivity(new Intent(getApplicationContext(), AddWorkOutActivity.class));
                                 return true;
                             case R.id.add_result:
-                                startActivity(new Intent(getApplicationContext(), AddResultActivity.class));
+//                                startActivity(new Intent(getApplicationContext(), AddResultActivity.class));
+                                addRecordDialog.setView(getCurrentFocus());
+                                addRecordDialog.show();
                             default:
                                 return false;
                         }
@@ -161,10 +164,6 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
             Intent intent = new Intent(MainActivity.this, Routine_Sets_and_Reps_Settings.class);
             intent.putExtra("ROUTINE_NAME", name);
             startActivity(intent);
-        }
-        else {
-            Intent intent = new Intent(MainActivity.this, RoutineDialog.class);
-            intent.putExtra("ROUTINE_NAME", name);
         }
     }
 
