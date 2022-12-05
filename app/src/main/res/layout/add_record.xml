@@ -19,6 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="운동일지에 기록됩니다"
+                android:imeOptions="actionDone"
                 />
         </LinearLayout>
 
