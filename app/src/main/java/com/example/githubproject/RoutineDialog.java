@@ -35,6 +35,7 @@ import java.util.Locale;
     Button end_btn;
     TextView text_view_countdown;
     TextView Text_rest;
+    TextView current_set;
     Button button_add;
     int array_counter = 0;
     int loop_counter = 0;
@@ -48,7 +49,7 @@ import java.util.Locale;
     private Button mButtonAdd;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
-    long START_TIME_IN_MILLIS = get_time();
+    long START_TIME_IN_MILLIS = 1000;//get_time();
     private long mTimerLeftInMillis = START_TIME_IN_MILLIS;
 
 
@@ -68,7 +69,7 @@ import java.util.Locale;
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                mTimerLeftInMillis = get_time();
+                mTimerLeftInMillis = 1000;//get_time();
                 routine_flipper.showPrevious();
             }
         }.start();
@@ -111,6 +112,7 @@ import java.util.Locale;
         end_btn = findViewById(R.id.end_btn);
         text_view_countdown = findViewById(R.id.text_view_countdown);
         Text_rest = findViewById(R.id.Text_rest);
+        current_set = findViewById(R.id.current_set);
         button_add = findViewById(R.id.button_add);
         Routine_DBHelper routine_dbHelper = new Routine_DBHelper(getContext(), 1);
         array_counter = routine_dbHelper.count(routine_name);
@@ -131,16 +133,15 @@ import java.util.Locale;
         set_img(workout_names[workout_check]);
         ima_tv.setText(workout_names[workout_check]);
         num_per_set.setText(rep_counter[set_count]+"회");
+        current_set.setText(set_check+"/"+set_counter[workout_check]);
 
 
         end_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.v("TAT", " " + workout_check + " " + set_check + " " + loop_counter + " " + workout_names[workout_check]);
-//                set_img(workout_names[workout_check]);
-//                ima_tv.setText(workout_names[workout_check]);
-                if (set_check==10000){
-                    set_check=1;
+                if (set_count==10000){//마지막 운동 세트 끝나면 종료
+                    set_count=0;
                     dismiss();
                 }
                 set_check++;
@@ -153,12 +154,12 @@ import java.util.Locale;
                     ima_tv.setText(workout_names[workout_check]);
                     num_per_set.setText(rep_counter[set_count]+"회");
                 }
-                if (workout_check+1 == loop_counter) {
-                    if(set_check==set_counter[workout_check]){
-                        set_check = 10000;
+                current_set.setText(set_check+"/"+set_counter[workout_check]);//세트/총세트 표시
+                if (workout_check+1 == loop_counter) {// 마지막운동 일 때
+                    if(set_check==set_counter[workout_check]){// 마지막세트 이후 onclick 이벤트 실행 시 제일 위의 if문 실행을 위한 설정
+                        set_check = 1;
                         workout_check = 0;
-                        set_count=0;
-                        //dismiss();
+                        set_count=10000;
                     }
                 }
                     routine_flipper.showNext();
