@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,6 +47,7 @@ public class AddRecordDialog extends AlertDialog {
         type_spins.setAdapter(typeAdapter);
 
         imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
         record_id.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,7 @@ public class AddRecordDialog extends AlertDialog {
                     String currentDate = simpleDateFormat.format(new Date());
                     mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
                 }
+                imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
             }
         });
     }
