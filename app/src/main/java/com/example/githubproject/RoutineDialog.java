@@ -1,5 +1,7 @@
 package com.example.githubproject;
 
+import static android.view.View.INVISIBLE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.activity.OnBackPressedDispatcher;
@@ -35,8 +38,9 @@ import java.util.Locale;
     Button button_add;
     int array_counter = 0;
     int loop_counter = 0;
-    int set_check = 0;
+    int set_check = 1;
     int workout_check = 0;
+    int set_count=0;
 
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
@@ -81,7 +85,7 @@ import java.util.Locale;
     private void resetTimer() {
         mTimerLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
-        mButtonReset.setVisibility(View.INVISIBLE);
+        mButtonReset.setVisibility(INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
     }
 
@@ -126,28 +130,41 @@ import java.util.Locale;
 
         set_img(workout_names[workout_check]);
         ima_tv.setText(workout_names[workout_check]);
+        num_per_set.setText(rep_counter[set_count]+"회");
+
 
         end_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.v("TAT", " " + workout_check + " " + set_check + " " + loop_counter + " " + workout_names[workout_check]);
-                set_img(workout_names[workout_check]);
-                ima_tv.setText(workout_names[workout_check]);
-                set_check++;
-                if (set_check == set_counter[workout_check]) {
-                    set_check = 0;
-                    workout_check++;
-                }
-                if (workout_check == loop_counter) {
-                    set_check = 0;
-                    workout_check = 0;
+//                set_img(workout_names[workout_check]);
+//                ima_tv.setText(workout_names[workout_check]);
+                if (set_check==10000){
+                    set_check=1;
                     dismiss();
                 }
-                else {
+                set_check++;
+                num_per_set.setText(rep_counter[set_count]+"회");
+                if (set_check == set_counter[workout_check]+1) {
+                    set_check = 1;
+                    workout_check++;
+                    set_count++;
+                    set_img(workout_names[workout_check]);
+                    ima_tv.setText(workout_names[workout_check]);
+                    num_per_set.setText(rep_counter[set_count]+"회");
+                }
+                if (workout_check+1 == loop_counter) {
+                    if(set_check==set_counter[workout_check]){
+                        set_check = 10000;
+                        workout_check = 0;
+                        set_count=0;
+                        //dismiss();
+                    }
+                }
                     routine_flipper.showNext();
                     startTimer();
                     Log.v("TEST", " " + workout_check + " " + set_check + " " + loop_counter + " " + set_counter[workout_check]);
-                }
+
             }
         });
 
