@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class RoutineRunFragment extends Fragment {
@@ -22,6 +23,7 @@ public class RoutineRunFragment extends Fragment {
     int set=1, count;
     int count_exercise=1;
     RoutineFragment routinefragment = new RoutineFragment();
+    RestTimers resttimers = new RestTimers();
     public static RoutineRunFragment newInstance() {
         return new RoutineRunFragment();
     }
@@ -35,7 +37,7 @@ public class RoutineRunFragment extends Fragment {
         TextView set_num = view.findViewById(R.id.set_num);
         TextView num_per_set = view.findViewById(R.id.num_per_set);
         Button end_btn = view.findViewById(R.id.end_btn);
-        Button add_btn = view.findViewById(R.id.plus_btn1);
+        //Button add_btn = view.findViewById(R.id.plus_btn1);
         ImageView exc_img = view.findViewById(R.id.exc_img);
         TextView ima_tv = view.findViewById(R.id.ima_tv);
 
@@ -83,16 +85,16 @@ public class RoutineRunFragment extends Fragment {
             }
         }
 
+//        end_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentManager fm = getActivity().getSupportFragmentManager();
+//                fm.beginTransaction().remove(RoutineRunFragment.this).commit();
+//                fm.popBackStack();
+//                db.close();
+//            }
+//        });
         end_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.beginTransaction().remove(RoutineRunFragment.this).commit();
-                fm.popBackStack();
-                db.close();
-            }
-        });
-        add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 set++;
@@ -117,10 +119,13 @@ public class RoutineRunFragment extends Fragment {
                 if (count_exercise==count){
                     Log.v("excount",cursor.getInt(1)+"");
                     if (set==cursor.getInt(1)){
-                        add_btn.setVisibility(View.INVISIBLE);
+                        end_btn.setVisibility(View.INVISIBLE);
                         db.close();
                     }
                 }
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, resttimers).addToBackStack(null).commit();
             }
         });
 
