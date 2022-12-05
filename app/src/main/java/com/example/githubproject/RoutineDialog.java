@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 
@@ -21,7 +23,7 @@ import org.w3c.dom.Text;
 
 import java.util.Locale;
 
-public class RoutineDialog extends AlertDialog {
+    public class RoutineDialog extends AlertDialog {
     String routine_name;
     ViewFlipper routine_flipper;
     ImageView exc_img;
@@ -36,18 +38,19 @@ public class RoutineDialog extends AlertDialog {
     int set_check = 0;
     int workout_check = 0;
 
-    private static final long START_TIME_IN_MILLIS = 10000;
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
     private Button mButtonReset;
     private Button mButtonAdd;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
+    long START_TIME_IN_MILLIS = get_time();
     private long mTimerLeftInMillis = START_TIME_IN_MILLIS;
 
 
-    protected RoutineDialog(Context context) {
+    protected RoutineDialog(Context context, String routine_name) {
         super(context, androidx.appcompat.R.style.AlertDialog_AppCompat);
+        this.routine_name = routine_name;
     }
 
     private void startTimer() {
@@ -61,7 +64,7 @@ public class RoutineDialog extends AlertDialog {
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                mTimerLeftInMillis = 10000;
+                mTimerLeftInMillis = get_time();
                 routine_flipper.showPrevious();
             }
         }.start();
@@ -105,7 +108,6 @@ public class RoutineDialog extends AlertDialog {
         text_view_countdown = findViewById(R.id.text_view_countdown);
         Text_rest = findViewById(R.id.Text_rest);
         button_add = findViewById(R.id.button_add);
-        routine_name = "333";
         Routine_DBHelper routine_dbHelper = new Routine_DBHelper(getContext(), 1);
         array_counter = routine_dbHelper.count(routine_name);
         String[] workout_names = new String[array_counter];
@@ -144,6 +146,7 @@ public class RoutineDialog extends AlertDialog {
                 else {
                     routine_flipper.showNext();
                     startTimer();
+                    Log.v("TEST", " " + workout_check + " " + set_check + " " + loop_counter + " " + set_counter[workout_check]);
                 }
             }
         });
@@ -156,11 +159,7 @@ public class RoutineDialog extends AlertDialog {
                 startTimer();
             }
         });
-
-
-
     }
-
 
     public void set_img(String workout_name) {
         String[] exercise = new String[]{"벤치프레스", "인클라인 벤치프레스", "덤벨 프레스", "숄더 프레스"
@@ -178,5 +177,30 @@ public class RoutineDialog extends AlertDialog {
                 exc_img.setImageResource(exc_svg[i]);
             }
         }
+    }
+
+    public long get_time() {
+        long time = 0;
+        ResttimeDBHelper resttimeDBHelper = new ResttimeDBHelper(getContext(), 1);
+        time = resttimeDBHelper.getTime();
+
+        switch(resttimeDBHelper.getTime()) {
+            case 15:
+                time = 15000;
+                break;
+            case 30:
+                time = 30000;
+                break;
+            case 45:
+                time = 45000;
+                break;
+            case 60:
+                time = 60000;
+                break;
+            default:
+                time = 90000;
+                break;
+        }
+        return time;
     }
 }
