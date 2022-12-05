@@ -19,12 +19,14 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.tabs.TabLayout;
 
 import org.w3c.dom.Text;
@@ -102,14 +104,21 @@ public class RecordFragment extends Fragment{
             LineDataSet lineDataSet = new LineDataSet(entries, chart_name);
             lineDataSet.setLineWidth(2);
             lineDataSet.setCircleRadius(6);
-            lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC"));
-            lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
+            lineDataSet.setCircleColor(Color.parseColor("#FFFFFF")); //FFA1B4DC
+            lineDataSet.setColor(Color.parseColor("#F35A06"));
             lineDataSet.setDrawCircleHole(true);
             lineDataSet.setDrawCircles(true);
             lineDataSet.setDrawHorizontalHighlightIndicator(false);
             lineDataSet.setDrawHighlightIndicators(false);
             lineDataSet.setDrawValues(false);
+            lineChart.setDragXEnabled(true);
+            lineChart.setDragEnabled(true);
+            lineChart.setDragYEnabled(true);
             lineChart.getLegend().setTextColor(Color.parseColor("#FFFFFF"));
+
+            Legend legend = lineChart.getLegend();
+            legend.setTextSize(21);
+
 
 
             LineData lineData = new LineData(lineDataSet);
@@ -117,15 +126,24 @@ public class RecordFragment extends Fragment{
 
             XAxis xAxis = lineChart.getXAxis();
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setEnabled(false);
+/*
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            lineChart.getXAxis().setYOffset(15f);
+            lineChart.getAxisLeft().setXOffset(15f);
+            xAxis.setGranularityEnabled(true);
+            xAxis.setGranularity(1f);
             xAxis.setTextColor(Color.WHITE);
-            xAxis.enableGridDashedLine(8, 24, 0);
-            xAxis.setLabelCount(resultList.size() - 1);
-            xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+            xAxis.enableGridDashedLine(8, 24, 0); //라인대쉬형태로 (라인길이, 공간길이, 단계)
+            xAxis.setLabelCount(resultList.size() - 1, true);
+            xAxis.setDrawGridLines(false); //격자무늬 삭제
+*/
+            /*xAxis.setValueFormatter(new IndexAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value) {
                     return resultList.get((int)value).getRecordDate();
                 }
-            });
+            });*/
 
             YAxis yLAxis = lineChart.getAxisLeft();
             yLAxis.setTextColor(Color.WHITE);
@@ -136,12 +154,19 @@ public class RecordFragment extends Fragment{
             yRAxis.setDrawGridLines(false);
 
             Description description = new Description();
-            description.setText("");
+            description.setText("클릭시 기록을 볼 수 있습니다.");
+            description.setTextColor(Color.WHITE);
+            description.setTextSize(14);
+
 
             lineChart.setDoubleTapToZoomEnabled(false);
             lineChart.setDrawGridBackground(false);
             lineChart.setDescription(description);
             lineChart.invalidate();
+            MyMarkerView marker = new MyMarkerView(getContext(),R.layout.custom_marker_view);
+            marker.setChartView(lineChart);
+            lineChart.setMarker(marker);
+
         }
 
     }
