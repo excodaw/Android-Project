@@ -38,6 +38,8 @@ public class AddRecordDialog extends AlertDialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record);
 
+
+
         record_save = findViewById(R.id.record_save);
         type_spins = findViewById(R.id.spinner_types);
         record_id = findViewById(R.id.record_id);
@@ -60,15 +62,18 @@ public class AddRecordDialog extends AlertDialog {
             public void onClick(View v){
                 if(record_id.length() == 0) {
                 }
-                else if(record_id.length() == 4) {
+                else if(record_id.length() >= 4) {
                     Toast.makeText(getContext(), "설마... 아니죠?", Toast.LENGTH_LONG).show();
                 }
                 else {
+                    Toast.makeText(getContext(), type_spins.getSelectedItem().toString() + " 기록 완료", Toast.LENGTH_LONG).show();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
                     String currentDate = simpleDateFormat.format(new Date());
                     mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+                    imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
+                    dismiss();
                 }
-                imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
+
             }
         });
     }

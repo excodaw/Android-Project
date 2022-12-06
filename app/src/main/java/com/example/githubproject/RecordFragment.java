@@ -51,7 +51,6 @@ public class RecordFragment extends Fragment{
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
-
     }
 
     @Override
@@ -154,10 +153,9 @@ public class RecordFragment extends Fragment{
             yRAxis.setDrawGridLines(false);
 
             Description description = new Description();
-            description.setText("클릭시 기록을 볼 수 있습니다.");
+            description.setText("그래프를 터치하면 기록한 날짜를 볼 수 있어요");
             description.setTextColor(Color.WHITE);
             description.setTextSize(14);
-
 
             lineChart.setDoubleTapToZoomEnabled(false);
             lineChart.setDrawGridBackground(false);
@@ -166,8 +164,6 @@ public class RecordFragment extends Fragment{
             MyMarkerView marker = new MyMarkerView(getContext(),R.layout.custom_marker_view);
             marker.setChartView(lineChart);
             lineChart.setMarker(marker);
-
         }
-
     }
 }

@@ -36,7 +36,6 @@ public class MyMarkerView extends MarkerView {
 
             tvContent.setText("" + Utils.formatNumber(ce.getHigh(), 0, true)+"" + Utils.formatNumber(ce.getHigh(), 0, true));
         } else {
-
             tvContent.setText("" + Utils.formatNumber(e.getX()+1, 0, true)+"번째 측정\n" + Utils.formatNumber(e.getY(), 0, true)+"kg");
         }
 

@@ -49,7 +49,7 @@ public class AddResultActivity extends AppCompatActivity {
                 if(record_id.length() == 0) {
 
                 }
-                else if(record_id.length() == 4) {
+                else if(record_id.length() >= 4) {
                     Toast.makeText(getApplicationContext(), "설마... 아니죠?", Toast.LENGTH_LONG).show();
                 }
                 else {

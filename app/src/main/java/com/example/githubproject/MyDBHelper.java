@@ -18,7 +18,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Record(number INT,Record_Type TEXT,Record_Date DATETIME DEFAULT (datetime('now','localtime')))");
+        db.execSQL("CREATE TABLE Record(number INT,Record_Type TEXT, Record_Date DATETIME DEFAULT (datetime('now','localtime')))");
     }
 
     @Override
