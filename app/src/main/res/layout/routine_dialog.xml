@@ -143,6 +143,16 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/countdown"
                 />
+            <Button
+                android:id="@+id/timer_end_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ff0000"
+                android:textColor="@color/white"
+                android:text="완료"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/current_set_timer"
+                />
         </RelativeLayout>
     </ViewFlipper>
 
