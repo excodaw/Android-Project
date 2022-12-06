@@ -67,6 +67,7 @@ public class AddRecordDialog extends AlertDialog {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
                     String currentDate = simpleDateFormat.format(new Date());
                     mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+                    dismiss();
                 }
                 imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
             }
