@@ -59,7 +59,6 @@ public class AlarmReceiver extends BroadcastReceiver{
 
                 .setTicker("{Time to watch some cool stuff!}")
                 .setContentTitle("운동할 시간이 되었습니다")
-                .setContentText("보조메시지")
                 .setContentInfo("INFO")
                 .setContentIntent(pendingI);
 
