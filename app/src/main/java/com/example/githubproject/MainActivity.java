@@ -18,9 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements SendEvent {
@@ -96,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
                                 return true;
                             case R.id.add_result:
 //                                startActivity(new Intent(getApplicationContext(), AddResultActivity.class));
-                                addRecordDialog.setView(getCurrentFocus());
                                 addRecordDialog.show();
                             default:
                                 return false;
@@ -167,6 +171,19 @@ public class MainActivity extends AppCompatActivity implements SendEvent {
         }
     }
 
+    public void setRecord(String record_name, String type) {
+        MyDBHelper myDBHelper = new MyDBHelper(getApplicationContext(), 1);
+        if(record_name.length() == 0) {
+        }
+        else if(record_name.length() == 4) {
+            Toast.makeText(getApplicationContext(), "설마... 아니죠?", Toast.LENGTH_LONG).show();
+        }
+        else {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+            String currentDate = simpleDateFormat.format(new Date());
+            myDBHelper.insert(Integer.parseInt(record_name), type, currentDate);
+        }
+    }
 }
 
 
