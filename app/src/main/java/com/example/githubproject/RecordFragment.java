@@ -51,6 +51,7 @@ public class RecordFragment extends Fragment{
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+
     }
 
     @Override
@@ -143,6 +144,7 @@ public class RecordFragment extends Fragment{
                     return resultList.get((int)value).getRecordDate();
                 }
             });*/
+            MyMarkerView marker = new MyMarkerView(getContext(),R.layout.custom_marker_view);
 
             YAxis yLAxis = lineChart.getAxisLeft();
             yLAxis.setTextColor(Color.WHITE);
@@ -153,17 +155,19 @@ public class RecordFragment extends Fragment{
             yRAxis.setDrawGridLines(false);
 
             Description description = new Description();
-            description.setText("그래프를 터치하면 기록한 날짜를 볼 수 있어요");
+            description.setText("12-2-20");
             description.setTextColor(Color.WHITE);
             description.setTextSize(14);
+
 
             lineChart.setDoubleTapToZoomEnabled(false);
             lineChart.setDrawGridBackground(false);
             lineChart.setDescription(description);
             lineChart.invalidate();
-            MyMarkerView marker = new MyMarkerView(getContext(),R.layout.custom_marker_view);
             marker.setChartView(lineChart);
             lineChart.setMarker(marker);
         }
+
+
     }
 }
