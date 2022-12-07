@@ -45,6 +45,17 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 />
+            <TextView
+                android:id="@+id/next_workout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="운동이름"
+                android:textSize="30dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/current_set"
+                android:visibility="visible"
+                />
 
             <Button
                 android:id="@+id/end_btn"
@@ -112,7 +123,18 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/countdown"
+                android:id="@+id/timer_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="209dp"
+                android:text="휴식"
+                android:textColor="@android:color/white"
+                android:textSize="45sp" />
+
+            <TextView
+                android:id="@+id/workout_countdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -120,17 +142,17 @@
                 android:text="00:00"
                 android:textColor="@android:color/white"
                 android:textSize="60sp" />
-
-            <TextView
-                android:id="@+id/timer_workout"
+            <Button
+                android:id="@+id/btn_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@id/workout_countdown"
+                android:layout_marginEnd="11dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="209dp"
-                android:text="운동이름"
-                android:textColor="@android:color/white"
-                android:textSize="45sp" />
+                android:backgroundTint="#00ff0000"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                android:text="완료" />
 
             <TextView
                 android:id="@+id/current_set_timer"
@@ -141,7 +163,18 @@
                 android:textSize="50dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/countdown"
+                android:layout_below="@+id/btn_end"
+                />
+            <TextView
+                android:id="@+id/next_workout_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="운동이름"
+                android:textSize="30dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/current_set_timer"
+                android:visibility="visible"
                 />
         </RelativeLayout>
     </ViewFlipper>
