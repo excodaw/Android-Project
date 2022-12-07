@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -29,7 +27,6 @@ import org.w3c.dom.Text;
 import java.util.Locale;
 
 public class RoutineDialog extends AlertDialog {
-    SoundPool soundPool;
     ViewFlipper routine_flipper;
     ImageView exc_img;
     TextView ima_tv;
@@ -38,30 +35,54 @@ public class RoutineDialog extends AlertDialog {
     TextView text_view_countdown;
     TextView Text_rest;
     TextView current_set;
-    TextView countdown;
-    TextView timer_workout;
-    TextView current_set_timer;
     Button button_add;
-    Button timer_end_btn;
+    TextView workout_countdown;
+    TextView timer_work;
+    TextView next_workout;
+    Button btn_end;
+    TextView current_set_timer;
+    TextView next_workout_timer;
 
-    String next_ex_name;
     String routine_name;
-    int next_tts = 0;
-    int array_counter = 0;
     int loop_counter = 0;
     int set_check = 1;
     int workout_check = 0;
     int set_count = 0;
-    int timer_set_count = 0;
+    long TIME = 0;
     long rest_time = 0;
-    long workout_time = 0;
-    long next_workout_time = 0;
-    int tts_checker = 0;
-    int DING_SOUND = 0;
-    boolean timer_checker;
+    long work_time = 0;
+    boolean timer_check;
+
     CountDownTimer mCountDownTimer;
-    boolean mTimerRunning;
-    long mTimerLeftInMillis = 0;
+
+    private void startTimer(long time, TextView countdownView) {
+        TIME = time;
+        mCountDownTimer = new CountDownTimer(TIME, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                TIME = millisUntilFinished;
+                updateCountDownText(TIME, countdownView);
+            }
+
+            @Override
+            public void onFinish() {
+                if(timer_check) {
+                    btn_end.setVisibility(View.VISIBLE);
+                }
+                else {
+                    TIME = time;
+                    routine_flipper.showPrevious();
+                }
+            }
+        }.start();
+    }
+
+    private void updateCountDownText(long time, TextView cnt_dwn) {
+        int minutes = (int) (time / 1000) / 60;
+        int seconds = (int) (time / 1000) % 60;
+        String timerLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
+        cnt_dwn.setText(timerLeftFormatted);
+    }
 
     protected RoutineDialog(Context context, String routine_name) {
         super(context, androidx.appcompat.R.style.AlertDialog_AppCompat);
@@ -72,6 +93,7 @@ public class RoutineDialog extends AlertDialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.routine_dialog);
 
+        Log.v("PLZ", "1231312");
 
         routine_flipper = findViewById(R.id.routine_flipper);
         exc_img = findViewById(R.id.exc_img);
@@ -82,23 +104,21 @@ public class RoutineDialog extends AlertDialog {
         Text_rest = findViewById(R.id.Text_rest);
         current_set = findViewById(R.id.current_set);
         button_add = findViewById(R.id.button_add);
-        countdown = findViewById(R.id.countdown);
-        timer_workout = findViewById(R.id.timer_workout);
+        workout_countdown = findViewById(R.id.workout_countdown);
+        timer_work = findViewById(R.id.timer_work);
+        btn_end = findViewById(R.id.btn_end);
+        next_workout = findViewById(R.id.next_workout);
         current_set_timer = findViewById(R.id.current_set_timer);
-        timer_end_btn = findViewById(R.id.timer_end_btn);
+        next_workout_timer = findViewById(R.id.next_workout_timer);
 
-        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        DING_SOUND = soundPool.load(getContext(), R.raw.ding, 1);
+        Routine_DBHelper routine_dbHelper = new Routine_DBHelper(getContext(), 1);
+        String[] workout_names = new String[routine_dbHelper.count(routine_name)];
+        int[] set_counter = new int[routine_dbHelper.count(routine_name)];
+        int[] rep_counter = new int[routine_dbHelper.count(routine_name)];
+        int[] tts_counter = new int[routine_dbHelper.count(routine_name)];
 
         ResttimeDBHelper resttimeDBHelper = new ResttimeDBHelper(getContext(), 1);
         rest_time = get_time(resttimeDBHelper.getTime());
-
-        Routine_DBHelper routine_dbHelper = new Routine_DBHelper(getContext(), 1);
-        array_counter = routine_dbHelper.count(routine_name);
-        String[] workout_names = new String[array_counter];
-        int[] set_counter = new int[array_counter];
-        int[] rep_counter = new int[array_counter];
-        int[] tts_counter = new int[array_counter];
 
         SQLiteDatabase db = routine_dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT Exercise_Name, Time, TTS, Reps, Sets FROM Routine WHERE Routine_Name = '" + routine_name + "'", null);
@@ -111,57 +131,71 @@ public class RoutineDialog extends AlertDialog {
         }
         db.close();
 
-        if(tts_counter[workout_check] >= 15) {
-            timer_checker = true;
-        }
-        else {
-            timer_checker = false;
-        }
-
-        if(workout_check + 1 < workout_names.length) {
-            next_ex_name = workout_names[workout_check + 1];
-            tts_checker = tts_counter[workout_check + 1];
-            next_workout_time = get_time(tts_counter[workout_check + 1]);
+        if(tts_counter[0] >= 15) {
+            timer_check = true;
+            routine_flipper.showNext();
+            routine_flipper.showNext();
+            work_time = get_time(tts_counter[workout_check]);
+            startTimer(work_time, workout_countdown);
+            timer_work.setText(workout_names[workout_check]);
+            current_set_timer.setText(set_check + "/" + set_counter[workout_check]);
+            if(workout_check + 1 != loop_counter) {
+                next_workout_timer.setText(workout_names[workout_check + 1]);
+            }
+            else{
+                next_workout_timer.setText("마지막 운동");
+            }
         }
 
         set_img(workout_names[workout_check]);
         ima_tv.setText(workout_names[workout_check]);
-        num_per_set.setText(rep_counter[set_count] + "회");
-        current_set.setText(set_check + "/" + set_counter[workout_check]);
-
+        num_per_set.setText(rep_counter[workout_check]+"회");
+        current_set.setText(set_check+"/"+set_counter[workout_check]);
+        if(workout_check + 1 != loop_counter) {
+            next_workout.setText(workout_names[workout_check + 1]);
+        }
         end_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("TAT", " " + workout_check + " " + set_check + " " + loop_counter + " " + workout_names[workout_check]);
-                if (set_count==10000){//마지막 운동 세트 끝나면 종료
-                    set_count=0;
+                if (workout_check + 1 == loop_counter && set_check == set_counter[workout_check]) {
+                    workout_check = 0;
+                    set_check = 1;
                     dismiss();
                 }
-                set_check++;
-                num_per_set.setText(rep_counter[set_count]+"회");
-                if (set_check == set_counter[workout_check]+1) {
-                    set_check = 1;
-                    workout_check++;
-                    if(tts_counter[workout_check] >= 15) {
-                        timer_checker = true;
+                else {
+                    if(set_check++ == set_counter[workout_check] && workout_check + 1 != loop_counter) {
+                        set_check = 1;
+                        workout_check++;
+                        if(workout_check + 1 != loop_counter) {
+                            next_workout.setText(workout_names[workout_check + 1]);
+                        }
+                        else{
+                            next_workout.setText("마지막 운동");
+                        }
+                        if(tts_counter[workout_check] >= 15) {
+                            timer_check = true;
+                            work_time = get_time(tts_counter[workout_check]);
+                            timer_work.setText(workout_names[workout_check]);
+                            current_set_timer.setText(set_check + "/" + set_counter[workout_check]);
+                            startTimer(work_time, workout_countdown);
+                            if(workout_check + 1 != loop_counter) {
+                                next_workout_timer.setText(workout_names[workout_check + 1]);
+                            }
+                            else{
+                                next_workout_timer.setText("마지막 운동");
+                            }
+                        }
+                        else {
+                            timer_check = false;
+                        }
+                        set_img(workout_names[workout_check]);
+                        ima_tv.setText(workout_names[workout_check]);
+                        num_per_set.setText(rep_counter[workout_check] + "회");
                     }
-                    else {
-                        timer_checker = false;
-                    }
-                    set_count++;
-                    set_img(workout_names[workout_check]);
-                    timer_workout.setText(workout_names[workout_check]);
-                    num_per_set.setText(rep_counter[set_count]+"회");
+                    current_set.setText(set_check + "/" + set_counter[workout_check]);
+                    routine_flipper.showNext();
+                    startTimer(rest_time, text_view_countdown);
                 }
-                current_set.setText(set_check + "/" + set_counter[workout_check]);//세트/총세트 표시
-                if (workout_check + 1 == loop_counter && set_check==set_counter[workout_check]) {// 마지막운동 일 때
-                    set_check = 1;
-                    workout_check = 0;
-                    set_count=10000;
-                }
-
-                routine_flipper.showNext();
-                startTimer(3000);
                 Log.v("TEST", " " + workout_check + " " + set_check + " " + loop_counter + " " + set_counter[workout_check]);
             }
         });
@@ -170,57 +204,42 @@ public class RoutineDialog extends AlertDialog {
             @Override
             public void onClick(View v) {
                 mCountDownTimer.cancel();
-                mTimerLeftInMillis = mTimerLeftInMillis + 10000;
-                startTimer(mTimerLeftInMillis);
+                TIME = TIME + 10000;
+                startTimer(TIME, text_view_countdown);
             }
         });
 
-        if(timer_checker) {
-            workout_time = get_time(tts_counter[workout_check]);
-            timer_workout.setText(workout_names[workout_check]);
-            current_set_timer.setText(set_check + "/" + set_counter[workout_check]);
-
-            routine_flipper.showNext();
-            routine_flipper.showNext();
-            startWorkoutTimer(2000);
-
-            timer_end_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (set_count==10000){//마지막 운동 세트 끝나면 종료
-                        set_count=0;
-                        soundPool.pause(DING_SOUND);
-                        dismiss();
-                    }
-                    set_check++;
-                    num_per_set.setText(rep_counter[set_count]+"회");
-                    if (set_check == set_counter[workout_check] + 1) {
-                        set_check = 1;
-                        workout_check++;
-                        if(tts_counter[workout_check] >= 15) {
-                            timer_checker = true;
-                        }
-                        else {
-                            timer_checker = false;
-                            set_img(workout_names[workout_check]);
-                            timer_workout.setText(workout_names[workout_check]);
-                            num_per_set.setText(rep_counter[set_count]+"회");
-                        }
-                        set_count++;
-                    }
-                    current_set.setText(set_check + "/" + set_counter[workout_check]);//세트/총세트 표시
-                    if (workout_check + 1 == loop_counter && set_check==set_counter[workout_check]) {// 마지막운동 일 때
-                        set_check = 1;
-                        workout_check = 0;
-                        set_count=10000;
-                    }
-
-                    routine_flipper.showNext();
-                    startTimer(3000);
-                    Log.v("TEST", " " + workout_check + " " + set_check + " " + loop_counter + " " + set_counter[workout_check]);
+        btn_end.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (workout_check + 1 == loop_counter && set_check == set_counter[workout_check]) {
+                    workout_check = 0;
+                    set_check = 1;
+                    dismiss();
                 }
-            });
-        }
+                if(set_check++ == set_counter[workout_check] && workout_check + 1 != loop_counter) {
+                    set_check = 1;
+                    workout_check++;
+                    if(tts_counter[workout_check] >= 15) {
+                        timer_check = true;
+                        work_time = get_time(tts_counter[workout_check]);
+                        timer_work.setText(workout_names[workout_check]);
+                        routine_flipper.showPrevious();
+                        startTimer(1000, text_view_countdown);
+                    }
+                    else {
+                        timer_check = false;
+                        set_img(workout_names[workout_check]);
+                        ima_tv.setText(workout_names[workout_check]);
+                        num_per_set.setText(rep_counter[workout_check] + "회");
+                        current_set.setText(set_check + "/" + set_counter[workout_check]);
+                    }
+                }
+                current_set_timer.setText(set_check + "/" + set_counter[workout_check]);
+                routine_flipper.showPrevious();
+                startTimer(10000, text_view_countdown);
+            }
+        });
     }
 
     public void set_img(String workout_name) {
@@ -245,7 +264,7 @@ public class RoutineDialog extends AlertDialog {
         long time = 0;
         switch(integer_time) {
             case 15:
-                time = 15000;
+                time = 2000;
                 break;
             case 30:
                 time = 30000;
@@ -261,66 +280,5 @@ public class RoutineDialog extends AlertDialog {
                 break;
         }
         return time;
-    }
-
-    private void startTimer(long set_time) {
-        current_set_timer.setText(set_check + "/" + timer_set_count);
-        mTimerLeftInMillis = set_time;
-        mCountDownTimer = new CountDownTimer(mTimerLeftInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                mTimerLeftInMillis = millisUntilFinished;
-                updateCountDownText(mTimerLeftInMillis);
-            }
-            @Override
-            public void onFinish() {
-                soundPool.play(DING_SOUND, 1f, 1f, 0, 0, 1f);
-                mTimerRunning = false;
-                mTimerLeftInMillis = set_time;
-                if(timer_checker) {
-                    routine_flipper.showNext();
-                    startWorkoutTimer(workout_time);
-                }
-                else {
-                    routine_flipper.showPrevious();
-                }
-            }
-        }.start();
-
-        mTimerRunning = true;
-    }
-
-    private void updateCountDownText(long time) {
-        int minutes = (int) (time / 1000) / 60;
-        int seconds = (int) (time / 1000) % 60;
-        String timerLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
-        text_view_countdown.setText(timerLeftFormatted);
-    }
-
-    private void startWorkoutTimer(long set_time) {
-        Log.v("TEST", " " + workout_check + " " + set_check + " " + loop_counter + " " + timer_set_count);
-        mTimerLeftInMillis = set_time;
-        mCountDownTimer = new CountDownTimer(mTimerLeftInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                mTimerLeftInMillis = millisUntilFinished;
-                updateWCountDownText(mTimerLeftInMillis);
-            }
-            @Override
-            public void onFinish() {
-                soundPool.play(DING_SOUND, 1f, 1f, 0, 0, 1f);
-                mTimerRunning = false;
-                mTimerLeftInMillis = set_time;
-                Log.v("TEST", " " + workout_check + " " + set_check + " " + loop_counter + " " + timer_set_count);
-            }
-        }.start();
-        mTimerRunning = true;
-    }
-
-    private void updateWCountDownText(long time) {
-        int minutes = (int) (time / 1000) / 60;
-        int seconds = (int) (time / 1000) % 60;
-        String timerLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
-        countdown.setText(timerLeftFormatted);
     }
 }
