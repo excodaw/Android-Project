@@ -1,5 +1,6 @@
 package com.example.githubproject;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,6 +32,50 @@ public class MyDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO Record VALUES(" + number + ", '" + Record_type + "', '" + Record_date + "')");
         db.close();
+    }
+
+    public void update(int newNumber, String record_type, String record_date) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("number", newNumber);
+        db.update("Record", values,"Record_type = ? AND Record_date = ?", new String[] { record_type, record_date });
+        //db.execSQL("UPDATE Record SET number ='" + newNumber + "' WHERE Record_type=" + record_type + '" AND "' + Record_date + "='"+record_date+"'");
+         db.close();
+    }
+
+    public boolean isExistingData(int number, String Record_type, String Record_date) {
+        ArrayList<Result> resultList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
+        Cursor cursor = db.rawQuery("SELECT * FROM Record", null);
+        while (cursor.moveToNext()) {
+            resultList.add(new Result(
+                            cursor.getInt(0),
+                            cursor.getString(1),
+                            cursor.getString(2)
+                    )
+            );
+        }
+
+        boolean isExisting = false;
+        for(int i=0; i<resultList.size(); i++) {
+            Result result = resultList.get(i);
+            if(result.getRecordType().equals(Record_type) && result.getRecordDate().equals(Record_date)) {
+                Log.e("testtest", Record_type + " ," + Record_date);
+                isExisting = true;
+                break;
+            }
+        }
+
+        if(isExisting) {
+            update(number, Record_type, Record_date);
+        }
+
+        Log.e("testtest", isExisting + "아");
+        db.close();
+
+        return isExisting;
     }
 
     public int getCount(String record_name) {
