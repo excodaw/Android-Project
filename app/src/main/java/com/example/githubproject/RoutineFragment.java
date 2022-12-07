@@ -90,7 +90,7 @@ public class RoutineFragment extends Fragment {
                             if(cursor.getInt(1) == 0 || cursor.getInt(2) == 0) {
                                 check = true;
                             }
-                            if(cursor.getInt(0) >= 15) {
+                            if(cursor.getInt(1) ==0 && cursor.getInt(0) >= 15) {
                                 check = false;
                             }
                         }
