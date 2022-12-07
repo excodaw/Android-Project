@@ -55,6 +55,7 @@ public class AddResultActivity extends AppCompatActivity {
                 else {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
                     String currentDate = simpleDateFormat.format(new Date());
+
                     mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
                 }
             }

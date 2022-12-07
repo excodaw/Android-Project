@@ -22,6 +22,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AddRecordDialog extends AlertDialog {
     protected AddRecordDialog(Context context) {
@@ -33,6 +35,7 @@ public class AddRecordDialog extends AlertDialog {
     EditText record_id;
     Spinner type_spins;
     InputMethodManager imm;
+    TimeZone tz;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,8 @@ public class AddRecordDialog extends AlertDialog {
         });
 
         record_save.setOnClickListener(new View.OnClickListener(){
+
+
             public void onClick(View v){
                 if(record_id.length() == 0) {
                 }
@@ -67,13 +72,19 @@ public class AddRecordDialog extends AlertDialog {
                 }
                 else {
                     Toast.makeText(getContext(), type_spins.getSelectedItem().toString() + " 기록 완료", Toast.LENGTH_LONG).show();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd", Locale.KOREAN);
+                    tz = TimeZone.getTimeZone("Asia/Seoul");
+                    simpleDateFormat.setTimeZone(tz);
                     String currentDate = simpleDateFormat.format(new Date());
-                    mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+
+                    boolean isExisting = mydbHelper.isExistingData(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+                    if(!isExisting) {
+                        mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+                    }
                     imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
+
                     dismiss();
                 }
-
             }
         });
     }
