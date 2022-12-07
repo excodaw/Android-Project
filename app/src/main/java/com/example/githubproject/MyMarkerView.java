@@ -49,14 +49,27 @@ public class MyMarkerView extends MarkerView {
             x=(int)e.getX();
             MyDBHelper mbhelper = new MyDBHelper(getContext(),1);
             SQLiteDatabase mb = mbhelper.getReadableDatabase();
-            Cursor cursor = mb.rawQuery("SELECT number, Record_Date FROM Record WHERE Record_Type = '"+ "몸무게"+ "'",null);
-            for(int i=0; i<e.getX()+1; i++){
-                cursor.moveToNext();
+            if (rf.type ==0) {
+                Cursor cursor = mb.rawQuery("SELECT number, Record_Date FROM Record WHERE Record_Type = '" + "몸무게" + "'", null);
+                for (int i = 0; i < e.getX() + 1; i++) {
+                    cursor.moveToNext();
+                }
+                a = cursor.getString(1);
+                tvContent.setText("" + Utils.formatNumber(e.getY(), 0, true) + "kg");
+                graph.setText(cursor.getString(1));
+                graph.setTextSize(20f);
             }
-            a=cursor.getString(1);
-            tvContent.setText("" + Utils.formatNumber(e.getY(), 0, true)+"kg");
-            graph.setText(cursor.getString(1));
-            graph.setTextSize(20f);
+            if (rf.type ==1) {
+                Cursor cursor = mb.rawQuery("SELECT number, Record_Date FROM Record WHERE Record_Type = '" + "몸무게" + "'", null);
+                for (int i = 0; i < e.getX() + 1; i++) {
+                    cursor.moveToNext();
+                }
+                a = cursor.getString(1);
+                tvContent.setText("" + Utils.formatNumber(e.getY(), 0, true) + "kg");
+                graph.setText(cursor.getString(1));
+                graph.setTextSize(20f);
+            }
+
         }
 
         super.refreshContent(e, highlight);

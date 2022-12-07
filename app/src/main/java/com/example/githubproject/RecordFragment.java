@@ -38,6 +38,7 @@ public class RecordFragment extends Fragment{
     LineChart lineChart;
     TabLayout graph_tabs;
     TextView graph;
+    int type = 0;
 
     public static RecordFragment newInstance(String param1, String param2) {
         RecordFragment fragment = new RecordFragment();
@@ -68,9 +69,11 @@ public class RecordFragment extends Fragment{
                 int position = tab.getPosition();
 
                 if(position == 0) {
+                    type = 0;
                     graphShow("몸무게");
                 }
                 else if(position == 1) {
+                    type = 1;
                     graphShow("3대 중량");
                 }
             }
