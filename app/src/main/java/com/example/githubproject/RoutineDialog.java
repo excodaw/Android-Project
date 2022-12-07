@@ -111,6 +111,7 @@ public class RoutineDialog extends AlertDialog {
         current_set_timer = findViewById(R.id.current_set_timer);
         next_workout_timer = findViewById(R.id.next_workout_timer);
 
+
         Routine_DBHelper routine_dbHelper = new Routine_DBHelper(getContext(), 1);
         String[] workout_names = new String[routine_dbHelper.count(routine_name)];
         int[] set_counter = new int[routine_dbHelper.count(routine_name)];
