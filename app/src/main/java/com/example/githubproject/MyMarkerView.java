@@ -23,15 +23,16 @@ import java.util.List;
 public class MyMarkerView extends MarkerView {
 
     private TextView tvContent;
+    private TextView graph;
     RecordFragment rf = new RecordFragment();
     int x;
     String a="";
 
-    public MyMarkerView(Context context, int layoutResource) {
+    public MyMarkerView(Context context, TextView graph, int layoutResource) {
         super(context, layoutResource);
 
-        tvContent = (TextView)findViewById(R.id.tvContent);
-
+        this.tvContent = (TextView)findViewById(R.id.tvContent);
+        this.graph = graph;
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the
@@ -53,8 +54,9 @@ public class MyMarkerView extends MarkerView {
                 cursor.moveToNext();
             }
             a=cursor.getString(1);
-            Toast.makeText(getContext(), cursor.getInt(0)+"kg"+cursor.getString(1)+"", Toast.LENGTH_SHORT).show();
-            tvContent.setText("" + Utils.formatNumber(e.getX()+1, 0, true)+"번째 측정\n" + cursor.getString(1)+"kg");
+            tvContent.setText("" + Utils.formatNumber(e.getY(), 0, true)+"kg");
+            graph.setText(cursor.getString(1));
+            graph.setTextSize(20f);
         }
 
         super.refreshContent(e, highlight);

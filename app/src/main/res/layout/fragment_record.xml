@@ -1,52 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WorkOutFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/graph_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="몸무게"/>
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_1rm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3대 중량"/>
-        </com.google.android.material.tabs.TabLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            <TextView
-                android:id="@+id/graph"
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="kg"
-                android:layout_alignBottom="@id/graph_chart"
-                android:layout_gravity="left"
-                />
+                android:text="몸무게" />
 
-
-            <TextView
-                android:id="@+id/graph2"
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_1rm"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignBottom="@id/graph_chart"
-                android:text="texxxxxxxtttt"
-                android:layout_gravity="right"/>
+                android:layout_height="wrap_content"
+                android:text="3대 중량" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/graph_chart"
@@ -54,6 +41,15 @@
                 android:layout_height="400dp" />
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/graph"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:text="기록을 클릭시 날짜가 표시됩니다." />
 
     </LinearLayout>
 </LinearLayout>

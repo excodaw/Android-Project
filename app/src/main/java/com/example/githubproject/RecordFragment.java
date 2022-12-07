@@ -104,8 +104,8 @@ public class RecordFragment extends Fragment{
             LineDataSet lineDataSet = new LineDataSet(entries, chart_name);
             lineDataSet.setLineWidth(2);
             lineDataSet.setCircleRadius(6);
-            lineDataSet.setCircleColor(Color.parseColor("#FFFFFF")); //FFA1B4DC
-            lineDataSet.setColor(Color.parseColor("#F35A06"));
+            lineDataSet.setCircleColor(Color.parseColor("#FFA1B4DC")); //FFA1B4DC
+            lineDataSet.setColor(Color.parseColor("#FFA1B4DC"));
             lineDataSet.setDrawCircleHole(true);
             lineDataSet.setDrawCircles(true);
             lineDataSet.setDrawHorizontalHighlightIndicator(false);
@@ -144,7 +144,7 @@ public class RecordFragment extends Fragment{
                     return resultList.get((int)value).getRecordDate();
                 }
             });*/
-            MyMarkerView marker = new MyMarkerView(getContext(),R.layout.custom_marker_view);
+            MyMarkerView marker = new MyMarkerView(getContext(), graph, R.layout.custom_marker_view);
 
             YAxis yLAxis = lineChart.getAxisLeft();
             yLAxis.setTextColor(Color.WHITE);
@@ -155,7 +155,7 @@ public class RecordFragment extends Fragment{
             yRAxis.setDrawGridLines(false);
 
             Description description = new Description();
-            description.setText("12-2-20");
+            description.setText("");
             description.setTextColor(Color.WHITE);
             description.setTextSize(14);
 
@@ -167,7 +167,5 @@ public class RecordFragment extends Fragment{
             marker.setChartView(lineChart);
             lineChart.setMarker(marker);
         }
-
-
     }
 }
