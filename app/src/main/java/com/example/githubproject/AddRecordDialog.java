@@ -81,6 +81,7 @@ public class AddRecordDialog extends AlertDialog {
                     if(!isExisting) {
                         mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
                     }
+                    record_id.setText(null);
                     imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
 
                     dismiss();
