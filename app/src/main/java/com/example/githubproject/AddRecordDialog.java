@@ -2,12 +2,10 @@ package com.example.githubproject;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
-import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
@@ -25,8 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class AddRecordDialog extends AlertDialog {
     protected AddRecordDialog(Context context) {
@@ -38,13 +34,11 @@ public class AddRecordDialog extends AlertDialog {
     EditText record_id;
     Spinner type_spins;
     InputMethodManager imm;
-    TimeZone tz;
-    Dialog overlepmessage_dialog;
-    String df = "0";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record);
+
         record_save = findViewById(R.id.record_save);
         type_spins = findViewById(R.id.spinner_types);
         record_id = findViewById(R.id.record_id);
@@ -53,9 +47,6 @@ public class AddRecordDialog extends AlertDialog {
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type_spins.setAdapter(typeAdapter);
 
-        overlepmessage_dialog = new Dialog(getContext());
-        Handler handler = new Handler();
-        overlepmessage_dialog.setContentView(R.layout.overlepmessage_dialog);
         imm = (InputMethodManager) getContext().getSystemService(INPUT_METHOD_SERVICE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
@@ -67,8 +58,6 @@ public class AddRecordDialog extends AlertDialog {
         });
 
         record_save.setOnClickListener(new View.OnClickListener(){
-
-
             public void onClick(View v){
                 if(record_id.length() == 0) {
                 }
@@ -76,94 +65,36 @@ public class AddRecordDialog extends AlertDialog {
                     Toast.makeText(getContext(), "설마... 아니죠?", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    //Toast.makeText(getContext(), type_spins.getSelectedItem().toString() + " 기록 완료", Toast.LENGTH_LONG).show();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd", Locale.KOREAN);
-                    tz = TimeZone.getTimeZone("Asia/Seoul");
-                    simpleDateFormat.setTimeZone(tz);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
                     String currentDate = simpleDateFormat.format(new Date());
-                    imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
+                    if(mydbHelper.getCountForUpdate(type_spins.getSelectedItem().toString(), currentDate) >= 1) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                        alert.setMessage("오늘의 결과는 이미 저장되었어요. 수정하겠어요?");
 
-                    overlepmessage_dialog.show();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            overlepmessage_dialog.cancel();
-                        }
-                    }, 3000);
-                    overlepmessage_dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-                    Button yesBtn = overlepmessage_dialog.findViewById(R.id.yesBtn);
-                    yesBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            df = "1";
-                            overlepmessage_dialog.cancel();
-                        }
-                    });
-                    Button noBtn = overlepmessage_dialog.findViewById(R.id.noBtn);
-                    noBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            df = "2";
-                            overlepmessage_dialog.cancel();
-                        }
-                    });
-                    handler.postDelayed(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd", Locale.KOREAN);
-                            tz = TimeZone.getTimeZone("Asia/Seoul");
-                            simpleDateFormat.setTimeZone(tz);
-                            String currentDate = simpleDateFormat.format(new Date());
-
-                            if (df.equals("1")) {
-                                boolean isExisting = mydbHelper.isExistingData(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                                if(!isExisting) {
-                                    mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                                }
-                            } else {
-                                record_id.setText(null);
-                                dismiss();
-                                return;
+                        alert.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
                             }
-                            record_id.setText(null);
-                            dismiss();
-                            /*
-                    boolean isExisting = mydbHelper.isExistingData(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                    if(!isExisting) {
+                        });
+
+                        alert.setNegativeButton("수정", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getContext(), type_spins.getSelectedItem().toString() + "수정되었습니다.", Toast.LENGTH_SHORT).show();
+                                mydbHelper.update(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
+                                dismiss();
+                                imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
+                            }
+                        });
+                        alert.show();
+                    }
+                    else {
+                        Toast.makeText(getContext(), type_spins.getSelectedItem().toString() + "입력되었습니다.", Toast.LENGTH_SHORT).show();
                         mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                    }*/
-                        }
-                    }, 3300);// 0.6초 정도 딜레이를 준 후 시작
-
-                    /*
-                    overlepmessage_dialog.findViewById(R.id.noBtn).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            df = "2";
-                            overlepmessage_dialog.cancel();
-                        }
-                    });
-
-                    if (df.equals("1")) {
-                        boolean isExisting = mydbHelper.isExistingData(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                        if(!isExisting) {
-                            mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                        }
-                    } else {
-                        return;
+                        dismiss();
+                        imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
                     }
 
-                    boolean isExisting = mydbHelper.isExistingData(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                    if(!isExisting) {
-                        mydbHelper.insert(Integer.parseInt(record_id.getText().toString()), type_spins.getSelectedItem().toString(), currentDate);
-                    }
-                    record_id.setText(null);
-                    imm.hideSoftInputFromWindow(record_save.getWindowToken(), 0);
-
-                    dismiss();*/
                 }
             }
         });
