@@ -5,10 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.AlteredCharSequence;
 import android.util.Log;
-
-import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +82,17 @@ public class MyDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         int count = 0;
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Record WHERE Record_Type =  '" + record_name + "'", null);
+        while(cursor.moveToNext()) {
+            count = cursor.getInt(0);
+        }
+        db.close();
+        return count;
+    }
+
+    public int getCountForUpdate(String record_name, String record_date) {
+        SQLiteDatabase db = getReadableDatabase();
+        int count = 0;
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Record WHERE Record_Type = '" + record_name + "'AND" + " Record_Date = '" + record_date + "'", null);
         while(cursor.moveToNext()) {
             count = cursor.getInt(0);
         }
